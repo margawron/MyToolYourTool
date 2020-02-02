@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>My Tool Your Tool</title>
+</head>
+<body>
+<p th:text="${tekst}">PLACEHOLDER</p>
+<h1>Witaj świecie</h1>
+<th:block th:if="${uzytkownicy}">
+    <p>Brak użytkowników</p>
+</th:block>
+
+</body>
+</html>
