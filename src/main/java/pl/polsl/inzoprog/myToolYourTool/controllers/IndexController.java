@@ -23,6 +23,7 @@ public class IndexController {
 
     @RequestMapping(value = {"/","/index"})
     public String homepage(Model model){
+
         model.addAttribute("tekst", "eloelo320");
         List<User> uzytkownicy = userRepository.findAll();
         if(uzytkownicy.size() == 0){

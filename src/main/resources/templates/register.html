@@ -6,24 +6,21 @@
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/popper.js/popper.min.js"></script>
     <script src="/webjars/bootstrap/bootstrap.min.js"></script>
+    <link href="styles/register.css" rel="stylesheet">
 </head>
 <body>
-<p th:text="${tekst}">PLACEHOLDER</p>
-
-<th:block th:if="${uzytkownicy}">
-    <p>Brak użytkowników</p>
-</th:block>
 <div class="container">
     <div id="header" class="row">
         <div class="col">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png"  alt="Logo" />
+                </a>
+            </div>
+        </div>
+        <div class="col">
 
         </div>
-    </div>
-    <div id="mainPage" class="row">
-
-    </div>
-    <div id="footer" class="row">
-
     </div>
 </div>
 </body>
