@@ -1,75 +1,69 @@
 package pl.polsl.inzoprog.myToolYourTool.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Marcel Gawron
  * @version 1.0
  */
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false, updatable = false)
     private Long id;
+
     @Column(name = "user_name")
     private String name;
+
     @Column(name = "user_password")
     private String password;
+
     @Column(name = "user_passwordSalt")
     private String passwordSalt;
+
     @Column(name = "user_createdAt")
     private LocalDateTime createdAt;
+
     @Column(name = "user_mail")
     private String mail;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "user_postal_code")
+    private Integer postalCode;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    /**
+     * Mappings to other tables
+     */
+    @OneToMany(mappedBy = "owner")
+    private List<Opinion> issuedOpinions;
 
-    public String getName() {
-        return name;
-    }
+    @OneToMany(mappedBy = "target")
+    private List<Opinion> receivedOpinions;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToMany(mappedBy = "receiver")
+    private List<Message> receivedMessages;
 
-    public String getPassword() {
-        return password;
-    }
+    @OneToMany(mappedBy = "sender")
+    private List<Message> sentMessages;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    @OneToMany(mappedBy = "owner")
+    private List<Offer> createdOffers;
 
-    public String getPasswordSalt() {
-        return passwordSalt;
-    }
+    @JoinTable(name = "who_used_offers",
+            joinColumns = @JoinColumn(name = "lender_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "offer_id"))
+    @OneToMany
+    private List<Offer> usedOffers;
 
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
-    }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 }
