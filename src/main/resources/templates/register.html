@@ -19,7 +19,9 @@
             </div>
         </div>
         <div class="col">
-
+            <form th:action="/register" method="post">
+                Login: <input type="text" th:field="*{name}">
+            </form>
         </div>
     </div>
 </div>
