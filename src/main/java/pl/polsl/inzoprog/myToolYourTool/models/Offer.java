@@ -2,10 +2,10 @@ package pl.polsl.inzoprog.myToolYourTool.models;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.bytebuddy.description.modifier.Ownership;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Marcel Gawron
@@ -33,12 +33,24 @@ public class Offer {
     @Column(name = "offer_expiry_date")
     private LocalDateTime timeOfExpiration;
 
+    @Column(name = "offer_cost")
+    private Integer cost;
+
     /**
      * Mappings to other tables
      */
     @ManyToOne
     private User owner;
 
+    @OneToMany
+    @JoinTable(name = "who_used_offers")
+    private List<User> lenders;
 
+    @OneToMany
+    @JoinTable(name = "image_to_offer_map_table",
+            joinColumns = @JoinColumn(name = "offer_origin_id", referencedColumnName = "offer_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id", referencedColumnName = "image_id")
+    )
+    private List<Image> offerImages;
 
 }

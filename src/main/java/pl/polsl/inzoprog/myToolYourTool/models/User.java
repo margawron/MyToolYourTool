@@ -59,7 +59,8 @@ public class User {
 
     @JoinTable(name = "who_used_offers",
             joinColumns = @JoinColumn(name = "lender_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "offer_id"))
+            inverseJoinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "offer_id")
+    )
     @OneToMany
     private List<Offer> usedOffers;
 
