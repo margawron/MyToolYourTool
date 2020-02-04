@@ -4,3 +4,12 @@
     font-family: cursive;
     font-size: 40px;
 }
+
+.register-border{
+    border: 2px solid aqua;
+}
+.register-label{
+    font-size: large;
+    text-align: center;
+    font-family: 'DejaVu Sans Mono', monospace;
+}

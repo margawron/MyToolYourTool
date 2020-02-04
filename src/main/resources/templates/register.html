@@ -19,8 +19,20 @@
             </div>
         </div>
         <div class="col">
-            <form th:action="/register" method="post">
-                Login: <input type="text" th:field="*{name}">
+            <!-- LOGOWANIE -->
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col register-border" style="width: 300px; float: none; margin: 0 auto">
+            <div class="register-label" >
+                Zarejestruj się !
+            </div>
+            <form action="#" method="post" th:action="@{/register}" th:object="${registerFormModel}" >
+                <p>Login: <input th:field="*{username}" type="text" style="width: 97%" ></p>
+                <p>Hasło: <input th:field="*{passwordFirst}" type="password" style="width: 97%"></p>
+                <p>Powtórz hasło: <input th:field="*{passwordSecond}" type="password" style="width: 97%"></p>
+                <p>Kod pocztowy: <input th:field="*{postalCode}" type="number" min="00000" max="99999" style="width: 97%"></p>
+                <input style="width: 300px; margin: 0 auto" type="submit" value="Zarejestruj">
             </form>
         </div>
     </div>
