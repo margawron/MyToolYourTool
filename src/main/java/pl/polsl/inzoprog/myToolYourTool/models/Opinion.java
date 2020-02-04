@@ -41,15 +41,15 @@ public class Opinion {
     /**
      * Mappings to other tables
      */
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "target_id")
     private User target;
 
-    @ManyToOne(targetEntity = Offer.class, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "offer_id")
     private Offer originToolOffer;
 

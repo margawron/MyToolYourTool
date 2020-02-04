@@ -25,10 +25,10 @@ public class Message {
     /**
      * Mappings to other tables
      */
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     private User sender;
 
-    @ManyToOne(targetEntity = User.class,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     private User receiver;
 
 
