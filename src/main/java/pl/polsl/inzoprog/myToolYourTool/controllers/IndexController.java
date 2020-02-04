@@ -3,7 +3,7 @@ package pl.polsl.inzoprog.myToolYourTool.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.polsl.inzoprog.myToolYourTool.models.User;
+import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.repositories.UserRepository;
 
 import java.util.List;

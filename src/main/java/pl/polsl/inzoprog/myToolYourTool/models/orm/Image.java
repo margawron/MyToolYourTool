@@ -1,4 +1,4 @@
-package pl.polsl.inzoprog.myToolYourTool.models;
+package pl.polsl.inzoprog.myToolYourTool.models.orm;
 
 import lombok.Getter;
 import lombok.Setter;

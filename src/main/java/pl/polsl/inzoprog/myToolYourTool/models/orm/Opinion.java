@@ -1,8 +1,8 @@
-package pl.polsl.inzoprog.myToolYourTool.models;
+package pl.polsl.inzoprog.myToolYourTool.models.orm;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.polsl.inzoprog.myToolYourTool.models.enums.ISSUE_DIRECTION;
+import pl.polsl.inzoprog.myToolYourTool.models.orm.enums.ISSUE_DIRECTION;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package pl.polsl.inzoprog.myToolYourTool.models.enums;
+package pl.polsl.inzoprog.myToolYourTool.models.orm.enums;
 
 public enum ISSUE_DIRECTION{
     TO_OWNER,
