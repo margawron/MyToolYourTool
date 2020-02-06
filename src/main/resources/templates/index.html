@@ -1,30 +1,146 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Tool Your Tool</title>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="resources/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/popper.js/popper.min.js"></script>
     <script src="/webjars/bootstrap/bootstrap.min.js"></script>
 </head>
 <body>
-<p th:text="${tekst}">PLACEHOLDER</p>
 
-<th:block th:if="${uzytkownicy}">
-    <p>Brak użytkowników</p>
-</th:block>
-<div class="container">
-    <div id="header" class="row">
-        <div class="col">
+    <div class="container-fluid">
+        <!-- Control the column width, and how they should appear on different devices -->
+        <div class="row">
+            <div class="col-lg-5"
+                 style="background-color:yellow;">
+                <h1>My tool your tool</h1>
+            </div>
+            <div class="col-lg-4" style="background-color:orange;">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="Wpisz swoje towary" style="column-fill: auto">
+            </div>
+            <div class="col-lg-1" style="background-color: red;">
+
+                <button class="button button4">Szukaj</button>
+
+            </div>
+            <div class="col-lg-2" style="background-color: blue;">
+
+                <button class="button button4">Loguj</button>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12" style="background-color:green;">Litwo, Ojczyzno moja! ty jesteś jak zdrowie;
+                Ile cię trzeba cenić, ten tylko się dowie,
+                Kto cię stracił. Dziś piękność twą w całej ozdobie
+                Widzę i opisuję, bo tęsknię po tobie.
+            </div>
+        </div>
+        <br>
+
+
+        <div class="row" style="height: 80%">
+            <div class="col-lg-2" style="background-color:yellow;">
+                <p>Narzędzia ręczne </p>
+                <p>Elektronarzędzia </p>
+                <p>Narzędzia spalinowe </p>
+            </div>
+            <div class="col-lg-10" style="background-color:orange;">glowy widok prawy
+                <div class="col-lg-12" style="background-color:green;">Stworz oferte
+                    <div class="row">
+                        <div class="col-lg-4" style="background-color:red;">
+                            <p> Zdjecie pogladowe</p>
+                        </div>
+                        <div class="col-lg-4" style="background-color:red;">
+                            <input type="price" class="form-control" id="titleOfferClass"
+                                   placeholder="Wpisz tytuł ogłoszenia" style="column-fill: auto">
+                            <input type="price" class="form-control" id="textOfferClass"
+                                   placeholder="Tresc ogłoszenia" style="height: 60%">
+                        </div>
+                        <div class="col-lg-4" style="background-color:red;">
+                            <input type="price" class="form-control" id="beginDateClass"
+                                   placeholder="Wpisz datę rozpoczęcia oferty" style="column-fill: auto">
+                            <input type="price" class="form-control" id="finalDateClass"
+                                   placeholder="Wpisz date wygaśnięcia oferty" style="column-fill: auto">
+                            <div class="row">
+                                <div class="col-lg-5"><input type="price" class="form-control" id="priceClass"
+                                       placeholder="Wpisz swoją cenę" style="width: auto">
+                                </div>
+                                <div class="col-lg-7">
+                                <button class="button button4" >Dodaj ogłoszenie</button>
+                                    <div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-12" style="background-color:green;">Wyroznione 1
+                    <div class="row">
+                        <div class="col-lg-4" style="background-color:red;">
+
+                            <p> Zdjecie pogladowe</p>
+                        </div>
+                        <div class="col-lg-4" style="background-color:red;">
+                            <p>Tytul ogloszenia</p>
+                            Tresc wystawione ogloszenia
+                        </div>
+                        <div class="col-lg-4" style="background-color:red;">
+                            <small id="cenaClass1" class="form-text text-muted">Data ważna do data xx.yy.zzzz</small>
+                            <button class="button button4">Rezerwuj</button>
+                            <small id="dataClass1" class="form-text text-muted">Cena: [zł]</small>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-12" style="background-color:green;">Wyroznione 2
+                    <div class="row">
+                        <div class="col-lg-4" style="background-color:red;">
+
+                            <p> Zdjecie pogladowe</p>
+                        </div>
+                        <div class="col-lg-4" style="background-color:red;">
+                            <p>Tytul ogloszenia</p>
+                            Tresc wystawione ogloszenia
+                        </div>
+                        <div class="col-lg-4" style="background-color:red;">
+                            <small id="cenaClass2" class="form-text text-muted">Data ważna do data xx.yy.zzzz</small>
+                            <button class="button button4">Rezerwuj</button>
+                            <small id="dataClass2" class="form-text text-muted">Cena: [zł]</small>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-12" style="background-color:green;">Wyroznione 3
+                    <div class="row">
+                        <div class="col-lg-4" style="background-color:red;">
+
+                            <p> Zdjecie pogladowe</p>
+                        </div>
+                        <div class="col-lg-4" style="background-color:red;">
+                            <p>Tytul ogloszenia</p>
+                            Tresc wystawione ogloszenia
+                        </div>
+                        <div class="col-lg-4" style="background-color:red;">
+                            <small id="cenaClass3" class="form-text text-muted">Data ważna do data xx.yy.zzzz</small>
+                            <button class="button button4">Rezerwuj</button>
+                            <small id="dataClass3" class="form-text text-muted">Cena: [zł]</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
         </div>
-    </div>
-    <div id="mainPage" class="row">
 
-    </div>
-    <div id="footer" class="row">
 
     </div>
 </div>
+    </div>
+
 </body>
 </html>
