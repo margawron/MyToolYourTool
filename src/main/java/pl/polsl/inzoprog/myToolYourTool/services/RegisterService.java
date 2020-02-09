@@ -6,15 +6,9 @@ import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.repositories.UserRepository;
 import pl.polsl.inzoprog.myToolYourTool.utils.Constants;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Optional;
-import java.util.Random;
 
 /**
  * @author Marcel Gawron
@@ -24,9 +18,11 @@ import java.util.Random;
 public class RegisterService {
 
     private UserRepository userRepository;
+    private CryptoService cryptoService;
 
-    public RegisterService(UserRepository userRepository){
+    public RegisterService(UserRepository userRepository, CryptoService cryptoService){
         this.userRepository = userRepository;
+        this.cryptoService = cryptoService;
     }
 
     public boolean areRegisterCredentialsCorrect(String messageToBeReturned, RegisterForm registerForm){
@@ -67,13 +63,11 @@ public class RegisterService {
         userBeingCreated.setName(registerForm.getUsername());
 
         // Generate salt
-        byte[] rawSalt = new byte[14];
-        new Random().nextBytes(rawSalt);
-        String salt = new String(rawSalt, StandardCharsets.UTF_8);
+        String salt = cryptoService.generateSalt();
         userBeingCreated.setPasswordSalt(salt);
 
         String password = registerForm.getPasswordFirst();
-        String digestedPassword = digestPassAndSalt(password, salt);
+        String digestedPassword = cryptoService.digestPassAndSalt(password, salt);
         // Digest successful
         if(digestedPassword == null){
             return null;
@@ -93,20 +87,6 @@ public class RegisterService {
         }
 
         return userBeingCreated;
-    }
-
-    public String digestPassAndSalt(String password, String salt){
-        String toBeDigested = password + salt;
-
-        MessageDigest md = null;
-        try{
-            md = MessageDigest.getInstance("SHA-512");
-        } catch (NoSuchAlgorithmException e){
-            return null;
-        }
-        byte[] digested = md.digest(toBeDigested.getBytes());
-
-        return new String(digested, StandardCharsets.UTF_8);
     }
 
     public Integer parsePostalCode(String postalCode){
