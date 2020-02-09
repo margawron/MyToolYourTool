@@ -26,4 +26,10 @@ public class LoginController {
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
+
+    @RequestMapping(path = "/logout")
+    public String logout(){
+
+        return "redirect:/";
+    }
 }

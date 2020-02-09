@@ -11,7 +11,7 @@ public class RegisterForm {
     String passwordFirst;
     String passwordSecond;
     String email;
-    Integer postalCode;
+    String postalCode;
 
     public String getUsername() {
         return username;
@@ -37,11 +37,11 @@ public class RegisterForm {
         this.passwordSecond = passwordSecond;
     }
 
-    public Integer getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(Integer postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 

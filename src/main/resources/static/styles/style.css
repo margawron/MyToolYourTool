@@ -54,7 +54,7 @@
 }
 
 .offer{
-    border: red solid 2px;
+    border: #3c4251 solid 1px;
 }
 
 .offer-thumbnail{
@@ -63,7 +63,6 @@
 }
 
 .offer-content{
-    border: aqua solid 2px;
 }
 
 .offer-content a{
