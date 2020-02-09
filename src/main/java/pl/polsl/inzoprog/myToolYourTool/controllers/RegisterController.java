@@ -1,10 +1,12 @@
 package pl.polsl.inzoprog.myToolYourTool.controllers;
 
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.polsl.inzoprog.myToolYourTool.models.forms.EmailForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.RegisterForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
@@ -46,7 +48,16 @@ public class RegisterController {
 
         model.addAttribute("loginForm", new LoginForm());
         model.addAttribute("searchForm", new SearchForm());
+        model.addAttribute("emailForm", new EmailForm());
         return "passwordRecovery";
+    }
+
+    @RequestMapping(path = "/forgottenPassword", method = RequestMethod.POST)
+    public String checkIfEmailExistAndSendEmail(Model model){
+
+        model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("searchForm", new SearchForm());
+        return "message";
     }
 
 }
