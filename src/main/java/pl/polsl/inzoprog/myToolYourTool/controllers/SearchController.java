@@ -19,12 +19,16 @@ public class SearchController {
     @RequestMapping(path = {"/search"}, method = RequestMethod.GET)
     public String sendSearchPage(Model model){
 
+        // TODO implement
+
         model.addAttribute("searchForm",new SearchForm());
         return "search";
     }
 
     @RequestMapping(path = {"/search"}, method = RequestMethod.POST)
     public String search(Model model){
+
+        // TODO implement
 
         return "search";
     }

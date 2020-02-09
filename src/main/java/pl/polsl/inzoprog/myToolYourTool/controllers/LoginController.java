@@ -21,6 +21,7 @@ public class LoginController {
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
     public String login(Model model){
+        // TODO Check if user is already logged in
 
         model.addAttribute("searchForm", new SearchForm());
         model.addAttribute("loginForm", new LoginForm());
@@ -29,6 +30,8 @@ public class LoginController {
 
     @RequestMapping(path = "/logout")
     public String logout(){
+
+        // TODO logut the user
 
         return "redirect:/";
     }

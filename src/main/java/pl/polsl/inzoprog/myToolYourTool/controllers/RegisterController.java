@@ -35,6 +35,7 @@ public class RegisterController {
     @RequestMapping(path = "/register", method = RequestMethod.GET)
     public String registerRequest(Model model){
 
+        // TODO check if user is logged in
 
         // obiekt dla obsłużanego formularza do wypełnienia przez kontekst Springa(Thymeleaf'a)
         model.addAttribute("registerFormModel", new RegisterForm());
@@ -46,6 +47,8 @@ public class RegisterController {
     @RequestMapping(path = "/forgottenPassword", method = RequestMethod.GET)
     public String forgottenPassword(Model model){
 
+        // TODO Check if user is logged in
+
         model.addAttribute("loginForm", new LoginForm());
         model.addAttribute("searchForm", new SearchForm());
         model.addAttribute("emailForm", new EmailForm());
@@ -54,6 +57,8 @@ public class RegisterController {
 
     @RequestMapping(path = "/forgottenPassword", method = RequestMethod.POST)
     public String checkIfEmailExistAndSendEmail(Model model){
+
+        // TODO
 
         model.addAttribute("loginForm", new LoginForm());
         model.addAttribute("searchForm", new SearchForm());

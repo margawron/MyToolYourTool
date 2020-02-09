@@ -23,6 +23,7 @@ public class IndexController {
 
     @RequestMapping(value = {"/","/index"})
     public String homepage(Model model){
+        // TOOD check if user is logged in, and give him necessary priviliages
 
         // For search form
         model.addAttribute("searchForm", new SearchForm());
