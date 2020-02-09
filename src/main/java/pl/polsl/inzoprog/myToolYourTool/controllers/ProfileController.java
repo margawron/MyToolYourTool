@@ -31,6 +31,7 @@ public class ProfileController {
         if(!loginService.isUserLoggedIn(request.getCookies())){
             return "redirect:/login";
         }
+        // TODO instead of login from when logged in change to welcome message
         // implement user lookup
 
 
