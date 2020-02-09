@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body id="body">
+<div class="container main-container" style="padding-top: 15px">
+    <div class="row" id="header">
+        <div class="col-sm-4">
+            <a th:href="@{/}">
+                <img src="images/logo.png" style="vertical-align: 0" width="300">
+            </a>
+        </div>
+        <div class="col-sm-4">
+            <form action="#" method="post" th:action="@{/search}" th:object="${searchForm}">
+                <input class="" placeholder="Co chcesz wyszukać?" style="display: inline-block" th:field="*{search}"
+                       type="text">
+                <input class="btn btn-primary" style="margin: 0;" type="submit" value="Szukaj">
+            </form>
+        </div>
+        <div class="col-sm-4 label-text-color">
+            <form action="#" method="post" th:action="@{/login}" th:object="${loginForm}">
+                Login: <input th:field="*{username}" type="text"><br>
+                Hasło: <input th:field="*{password}" type="password">
+                <input class="btn btn-primary" style="margin: 0" type="submit" value="Zaloguj">
+            </form>
+        </div>
+    </div>
+    <div class="row" id="navBar">
+        <div class="col">
+            <a th:href="@{/}">Strona głowna</a>
+        </div>
+        <div class="col">
+            <a th:href="@{/login}">Login</a>
+        </div>
+        <div class="col">
+            <a th:href="@{/register}">Rejestracja</a>
+        </div>
+        <div class="col">
+            <a th:href="@{/search}">Wyszukaj</a>
+        </div>
+        <div class="col">
+            <a id="current" th:href="@{/profile}">Profil</a>
+        </div>
+        <div class="col">
+            <a th:href="@{/logout}">Wyloguj</a>
+        </div>
+    </div>
+    <div class="row justify-content-center" id="welcomeMessage">
+        <div class="col-sm-8 alert alert-primary alert-dismissible fade show">
+            Oszczędzaj z nami. Nie kupuj narzędzi które wykorzystasz tylko raz. Wypożyczaj je!<br>
+            Lub jeżeli posiadasz dużo narzędzi które kurzą się u Ciebie? Zarabiaj na nich!
+            <!-- Who does the javascript ? -->
+            <!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+            <!--                <span aria-hidden="true">&times;</span>-->
+            <!--            </button>-->
+        </div>
+    </div>
+    <div class="row" id="content">
+
+    </div>
+    <div id="footer" class="row justify-content-sm-center">
+        <div class="page-divider">&nbsp;</div>
+        <div class="col-sm-3" style="text-align: center">
+            <p>MyToolYourTool &copy; 2020</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
