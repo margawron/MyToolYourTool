@@ -13,6 +13,9 @@ import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
 import pl.polsl.inzoprog.myToolYourTool.services.RegisterService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author Marcel Gawron
  * @version 1.0
@@ -29,15 +32,10 @@ public class RegisterController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public String registerUser(Model model, @ModelAttribute RegisterForm registerFormModel){
+    public String registerUser(Model model, @ModelAttribute RegisterForm registerFormModel, HttpServletRequest request){
         model.addAttribute("searchForm", new SearchForm());
         model.addAttribute("loginForm", new LoginForm());
-        /* TODO
-            czy jego dane są poprawne sprawdzić czy użytkownik
-            jest już zalogowany(ciasteczka) oraz czy istnieje w bazie danych
-            jeżeli wszystko jest ok to dodaj użytkownika do bazy danych i przekieruj do strony z logowaniem
-        */
-        // TODO sprawdź czy użytkownik jest zalogowany
+
 
         // Sprawdź czy nazwa użytkownika jest poprawna
         String message = "";
@@ -62,13 +60,14 @@ public class RegisterController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.GET)
-    public String registerPage(Model model){
+    public String registerPage(Model model, HttpServletRequest request){
         model.addAttribute("registerFormModel", new RegisterForm());
         model.addAttribute("loginForm", new LoginForm());
         model.addAttribute("searchForm", new SearchForm());
-        // TODO check if user is logged in
-
-        // obiekt dla obsłużanego formularza do wypełnienia przez kontekst Springa(Thymeleaf'a)
+        // Check if user is logged in
+        if(loginService.isUserLoggedIn(request.getCookies())){
+            return "redirect:/";
+        }
 
         return "register";
     }
