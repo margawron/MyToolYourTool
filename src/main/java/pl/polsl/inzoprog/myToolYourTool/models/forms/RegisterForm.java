@@ -10,6 +10,7 @@ public class RegisterForm {
     String username;
     String passwordFirst;
     String passwordSecond;
+    String email;
     Integer postalCode;
 
     public String getUsername() {
@@ -42,5 +43,13 @@ public class RegisterForm {
 
     public void setPostalCode(Integer postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
