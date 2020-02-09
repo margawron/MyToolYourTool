@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/popper.js/popper.min.js"></script>
+    <script src="/webjars/bootstrap/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+
+<div class="container-fluid">
+    <!-- Control the column width, and how they should appear on different devices -->
+    <div class="row">
+        <div class="col-lg-3">
+            <a href="/">
+                <img src="../src/main/resources/static/images/logo.png" alt="Logo"/>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <div class="card-body">
+                <input type="thing" class="form-control"
+                       placeholder="Wpisz swoje towary" style="column-fill: auto">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="card-body">
+                <button class="btn btn-primary" style="margin-right: 20%">Szukaj</button>
+                <button class="btn btn-primary">Zaloguj się</button>
+            </div>
+        </div>
+        <div class="col-lg-3">
+
+            <div class="card-body">
+                <input type="username" class="form-control"
+                       placeholder="Login">
+                <input type="password" class="form-control"
+                       placeholder="Haslo">
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12" style="border:1px solid #000; ">Litwo, Ojczyzno moja! ty jesteś jak zdrowie;
+            Ile cię trzeba cenić, ten tylko się dowie,
+            Kto cię stracił. Dziś piękność twą w całej ozdobie
+            Widzę i opisuję, bo tęsknię po tobie.
+        </div>
+    </div>
+
+    <div class="row" style="height: 150%">
+
+        <div class="col-lg-2">
+            <div class="sidenav">
+                <div class="btn-group-vertical">
+                    <h1>Kategorie </h1>
+                    <button>Narzędzia elektryczne</button>
+                    <button>Narzędzia mechaniczne</button>
+                    <button>Narzędzie spalionowe</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+
+                            <div class="col-lg-2">
+                                <img class="photo" src="../src/main/resources/static/images/logo.png"/>
+                            </div>
+                            <div class="col-lg-5">
+                                <input type="price" class="form-control"
+                                       placeholder="Wpisz tytuł ogłoszenia" style="column-fill: auto">
+                                <input type="price" class="form-control"
+                                       placeholder="Tresc ogłoszenia" style="height: 60%">
+                            </div>
+                            <div class="col-lg-5"">
+                                <input type="price" class="form-control"
+                                       placeholder="Wpisz datę rozpoczęcia oferty" style="column-fill: auto">
+                                <input type="price" class="form-control"
+                                       placeholder="Wpisz date wygaśnięcia oferty" style="column-fill: auto">
+                                <div class="row">
+                                    <div class="col-lg-6"><input type="price" class="form-control"
+                                                                 placeholder="Wpisz swoją cenę"
+                                                                 style="column-fill: auto">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <button class="btn btn-primary" style="margin-top: 9px">Dodaj ogłoszenie
+                                        </button>
+                                        <div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img class="photo" src="../src/main/resources/static/images/logo.png"/>
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="card w-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nazwa ogłoszenia</h5>
+                                        <p class="card-text">
+                                            Bardzo zawiła treść ogłoszenia blablabla blaba coś tam tam tam tam super
+                                            chybro kosiarka
+                                        </p>
+                                        <small style="font-size: 110%">Data wygaśnięcia: xx.yy.zz</small>
+                                        <small style="font-size: 110%">Cena: 2137[zł]</small>
+                                        <a href="#" class="btn btn-primary">Rezerwuj</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img class="photo" src="../src/main/resources/static/images/logo.png"/>
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="card w-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nazwa ogłoszenia</h5>
+                                        <p class="card-text">
+                                            Bardzo zawiła treść ogłoszenia blablabla blaba coś tam tam tam tam super
+                                            chybro kosiarka
+                                        </p>
+                                        <small style="font-size: 110%">Data wygaśnięcia: xx.yy.zz</small>
+                                        <small style="font-size: 110%">Cena: 2137[zł]</small>
+                                        <a href="#" class="btn btn-primary">Rezerwuj</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img class="photo" src="../src/main/resources/static/images/logo.png"/>
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="card w-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nazwa ogłoszenia</h5>
+                                        <p class="card-text">
+                                            Bardzo zawiła treść ogłoszenia blablabla blaba coś tam tam tam tam super
+                                            chybro kosiarka
+                                        </p>
+                                        <small style="font-size: 110%">Data wygaśnięcia: xx.yy.zz</small>
+                                        <small style="font-size: 110%">Cena: 2137[zł]</small>
+                                        <a href="#" class="btn btn-primary">Rezerwuj</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+</body>
+</html>

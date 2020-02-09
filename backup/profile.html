@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <title>MyToolYourTool</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../src/main/resources/static/styles/backup/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/popper.js/popper.min.js"></script>
+    <script src="/webjars/bootstrap/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group row">
+                                <div class="col-8">
+                                    <button class="button button1">Strona główna</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Dane osobowe:</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">ID</label>
+                                    <div class="col-8">
+                                        <label>ID</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="email" class="col-4 col-form-label">Email</label>
+                                    <div class="col-8">
+                                        <input id="email" name="email" placeholder="" class="form-control here" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="postalCode" class="col-4 col-form-label">Kod pocztowy</label>
+                                    <div class="col-8">
+                                        <input id="postalCode" name="postalCode" placeholder="" class="form-control here" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-4 col-form-label">Data dołączenia</label>
+                                    <div class="col-8">
+                                        <label>Data</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="publicinfo" class="col-4 col-form-label">Dodatkowe Informacje</label>
+                                    <div class="col-8">
+                                        <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="newpass" class="col-4 col-form-label">Nowe hasło</label>
+                                    <div class="col-8">
+                                        <input id="newpass" name="newpass" placeholder="" class="form-control here" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-4 col-8">
+                                        <button name="submit" type="submit" class="btn btn-primary">Aktualizuj</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Mozliwosc dodawania narzedzi -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Dodaj narzędzie:</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-16">
+                            <form>
+                                <div id="tableIn" class="table-editable">
+                                    <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                                        <colgroup>
+                                            <col class="col-md-3">
+                                            <col class="col-md-7">
+                                            <col class="col-md-12">
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 15%">Nazwa</th>
+                                            <th style="width: 40%">Opis</th>
+                                            <th style="width: 10%">Data dodania</th>
+                                            <th style="width: 10%">Data wygaśnięcia</th>
+                                            <th style="width: 10%">Koszt</th>
+                                            <th style="width: 10%">Dodaj</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td style="width: 20%" contenteditable="true"></td>
+                                            <td class="pt-3-half" contenteditable="true"></td>
+                                            <td class="pt-3-half" contenteditable="true"></td>
+                                            <td class="pt-3-half" contenteditable="true"></td>
+                                            <td class="pt-3-half" contenteditable="true"></td>
+                                            <td>
+                                                <span class="table-add"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Dodaj narzędzie</button></span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Wyswietla liste narzedzi -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Twoje narzędzia:</h4>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-16">
+                            <form>
+                                <div id="tableOut" class="table-editable">
+                                    <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 5%">ID</th>
+                                            <th style="width: 15%">Nazwa</th>
+                                            <th style="width: 40%">Opis</th>
+                                            <th style="width: 10%">Data dodania</th>
+                                            <th style="width: 10%">Data wygaśnięcia</th>
+                                            <th style="width: 10%">Koszt</th>
+                                            <th style="width: 10%">Usun</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="pt-3-half" contenteditable="true">13322</td>
+                                            <td class="pt-3-half" contenteditable="true">Kosiarka</td>
+                                            <td class="pt-3-half" contenteditable="true">Sluzy do koszenia, ekstra stan</td>
+                                            <td class="pt-3-half" contenteditable="true"></td>
+                                            <td class="pt-3-half" contenteditable="true"></td>
+                                            <td class="pt-3-half" contenteditable="true">20</td>
+                                            <td>
+                                                <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Usun narzędzie</button></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pt-3-half" contenteditable="true">15321</td>
+                                            <td class="pt-3-half" contenteditable="true">Pralka</td>
+                                            <td class="pt-3-half" contenteditable="true">Do prania, troche stara</td>
+                                            <td class="pt-3-half" contenteditable="true"></td>
+                                            <td class="pt-3-half" contenteditable="true"></td>
+                                            <td class="pt-3-half" contenteditable="true">7</td>
+                                            <td>
+                                                <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Usun narzędzie</button></span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
