@@ -54,7 +54,7 @@
             <a th:href="@{/search}">Wyszukaj</a>
         </div>
         <div class="col">
-            <a id="current" th:href="@{/profile}">Profil</a>
+            <a th:href="@{/profile}">Profil</a>
         </div>
         <div class="col">
             <a th:href="@{/logout}">Wyloguj</a>
@@ -70,8 +70,10 @@
             <!--            </button>-->
         </div>
     </div>
-    <div class="row" id="content">
-
+    <div class="row justify-content-sm-center" id="content">
+        <div class="col-sm-5" style="text-align: center" >
+            <p th:utext="${message}"></p>
+        </div>
     </div>
     <div id="footer" class="row justify-content-sm-center">
         <div class="page-divider">&nbsp;</div>

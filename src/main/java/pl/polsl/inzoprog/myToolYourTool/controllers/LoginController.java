@@ -21,10 +21,11 @@ public class LoginController {
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
     public String login(Model model){
-        // TODO Check if user is already logged in
-
         model.addAttribute("searchForm", new SearchForm());
         model.addAttribute("loginForm", new LoginForm());
+        // TODO Check if user is already logged in
+
+
         return "login";
     }
 

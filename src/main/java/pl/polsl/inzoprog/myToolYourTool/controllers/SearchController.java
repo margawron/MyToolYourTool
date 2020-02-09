@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
 
 /**
@@ -18,10 +19,10 @@ public class SearchController {
 
     @RequestMapping(path = {"/search"}, method = RequestMethod.GET)
     public String sendSearchPage(Model model){
-
+        model.addAttribute("searchForm",new SearchForm());
+        model.addAttribute("loginForm", new LoginForm());
         // TODO implement
 
-        model.addAttribute("searchForm",new SearchForm());
         return "search";
     }
 

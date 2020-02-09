@@ -19,12 +19,12 @@ public class ProfileController {
 
     @RequestMapping(path = {"/profile"}, method = RequestMethod.GET)
     public String getProfile(Model model){
-
+        model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("searchForm", new SearchForm());
         // TODO check if user is logged in
         // implement user lookup
 
-        model.addAttribute("loginForm", new LoginForm());
-        model.addAttribute("searchForm", new SearchForm());
+
         return "profile";
     }
 }
