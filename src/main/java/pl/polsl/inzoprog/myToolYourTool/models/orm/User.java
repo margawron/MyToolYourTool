@@ -2,6 +2,7 @@ package pl.polsl.inzoprog.myToolYourTool.models.orm;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -38,6 +39,12 @@ public class User {
 
     @Column(name = "user_postal_code")
     private Integer postalCode;
+
+    @Column(name = "user_token")
+    private String loginToken;
+
+    @Column(name = "user_token_expiry")
+    private LocalDateTime tokenExpiryDate;
 
     /**
      * Mappings to other tables
