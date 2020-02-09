@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
 
-import javax.sql.rowset.serial.SerialArray;
 
 /**
  * @author Marcel Gawron
