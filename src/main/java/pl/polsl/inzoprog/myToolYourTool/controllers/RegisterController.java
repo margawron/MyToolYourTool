@@ -42,8 +42,10 @@ public class RegisterController {
     }
 
     @RequestMapping(path = "/forgottenPassword", method = RequestMethod.GET)
-    public String forgottenPassword(){
+    public String forgottenPassword(Model model){
 
+        model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("searchForm", new SearchForm());
         return "passwordRecovery";
     }
 
