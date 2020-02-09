@@ -3,33 +3,28 @@ package pl.polsl.inzoprog.myToolYourTool.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
-import pl.polsl.inzoprog.myToolYourTool.repositories.UserRepository;
 
+import javax.sql.rowset.serial.SerialArray;
 
 /**
  * @author Marcel Gawron
  * @version 1.0
  */
 @Controller
-public class IndexController {
+public class LoginController {
 
-    private UserRepository userRepository;
+    public LoginController(){
 
-    public IndexController(UserRepository userRepository){
-        this.userRepository = userRepository;
     }
 
-    @RequestMapping(value = {"/","/index"})
-    public String homepage(Model model){
+    @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
+    public String login(Model model){
 
-        // For search form
         model.addAttribute("searchForm", new SearchForm());
-        // For login form
         model.addAttribute("loginForm", new LoginForm());
-
-        return "index";
+        return "login";
     }
-
 }

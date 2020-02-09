@@ -5,7 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.RegisterForm;
+import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
 
 /**
  * @author Marcel Gawron
@@ -34,7 +36,15 @@ public class RegisterController {
 
         // obiekt dla obsłużanego formularza do wypełnienia przez kontekst Springa(Thymeleaf'a)
         model.addAttribute("registerFormModel", new RegisterForm());
+        model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("searchForm", new SearchForm());
         return "register";
+    }
+
+    @RequestMapping(path = "/forgottenPassword", method = RequestMethod.GET)
+    public String forgottenPassword(){
+
+        return "passwordRecovery";
     }
 
 }
