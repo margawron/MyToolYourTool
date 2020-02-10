@@ -134,7 +134,6 @@ public class RegisterService {
             return false;
         }
 
-        // TODO check zapisz zmiany
         user.setPostalCode(parsePostalCode(editForm.getPostalCode()));
         user.setMail(editForm.getEmail());
         if(!editForm.getNewPasswordFirst().equals("")){
