@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org/">
+<body>
+<th:block th:fragment="header(searchFrom, username, time, loginForm)">
+    <div class="row" id="header">
+        <div class="col-sm-4">
+            <a th:href="@{/}">
+                <img src="/images/logo.png" style="vertical-align: 0" width="300">
+            </a>
+        </div>
+        <div class="col-sm-4">
+            <form action="#" method="post" th:action="@{/search}" th:object="${searchForm}">
+                <input class="" placeholder="Co chcesz wyszukać?" style="display: inline-block" th:field="*{search}"
+                       type="text">
+                <input class="btn btn-primary" style="margin: 0;" type="submit" value="Szukaj">
+            </form>
+        </div>
+        <div class="col-sm-4 label-text-color">
+            <th:block th:if="${username != null}">
+                Witaj <b th:text="${username}"></b><br>
+                Jest godzina <b th:text="${time}"></b>
+            </th:block>
+            <th:block th:if="${username == null}">
+                <form action="#" method="post" th:action="@{/login}" th:object="${loginForm}">
+                    Login: <input th:field="*{username}" type="text"><br>
+                    Hasło: <input th:field="*{password}" type="password">
+                    <input class="btn btn-primary" style="margin: 0" type="submit" value="Zaloguj">
+                </form>
+            </th:block>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

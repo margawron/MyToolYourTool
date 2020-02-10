@@ -4,7 +4,7 @@
     <title>MyToolYourTool</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="styles/style.css" rel="stylesheet">
+    <link href="/styles/style.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <script crossorigin="anonymous"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -19,32 +19,8 @@
 </head>
 <body id="body">
 <div class="container main-container" style="padding-top: 15px">
-    <div class="row" id="header">
-        <div class="col-sm-4">
-            <a th:href="@{/}">
-                <img src="images/logo.png" style="vertical-align: 0" width="300">
-            </a>
-        </div>
-        <div class="col-sm-4">
-            <form action="#" method="post" th:action="@{/search}" th:object="${searchForm}">
-                <input class="" placeholder="Co chcesz wyszukać?" style="display: inline-block" th:field="*{search}"
-                       type="text">
-                <input class="btn btn-primary" style="margin: 0;" type="submit" value="Szukaj">
-            </form>
-        </div>
-        <div class="col-sm-4 label-text-color">
-            <th:block th:if="${username != null}">
-                Witaj <b th:text="${username}"></b><br>
-                Jest godzina <b th:text="${time}"></b>
-            </th:block>
-            <th:block th:if="${username == null}">
-                <form action="#" method="post" th:action="@{/login}" th:object="${loginForm}">
-                    Login: <input th:field="*{username}" type="text"><br>
-                    Hasło: <input th:field="*{password}" type="password">
-                    <input class="btn btn-primary" style="margin: 0" type="submit" value="Zaloguj">
-                </form>
-            </th:block>
-        </div>
+    <div th:replace="fragments/header.html :: header(searchFrom=${searchForm}, username=${username}, time=${time}, loginForm=${loginForm})">
+
     </div>
     <div class="row" id="navBar">
         <div class="col">
