@@ -25,6 +25,7 @@ public class Offer {
     private String title;
 
     @Column(name = "offer_desc")
+    @Lob
     private String description;
 
     @Column(name = "offer_issue_date")
@@ -51,7 +52,6 @@ public class Offer {
 
     // Kategoria przedmiotu
     @OneToOne
-    @JoinTable(name = "categories_to_offers")
     private Category category;
 
     // Zdjęcia przedmiotu
