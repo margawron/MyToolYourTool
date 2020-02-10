@@ -70,8 +70,68 @@
             <!--            </button>-->
         </div>
     </div>
-    <div class="row" id="content">
-
+    <div class="row justify-content-sm-center">
+        <div class="col-sm-5" style="width: 300px; float: none; margin: 0 auto">
+            <form action="#" method="post" th:action="@{/updateProfile}" th:object="${profileEditForm}" >
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">ID:</label>
+                    <input style="color: lightgray" readonly class="col-8" th:field="*{id}">
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Nazwa użytkownika:</label>
+                    <input style="color: lightgray" readonly class="col-8" th:field="*{username}">
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Data dołączenia:</label>
+                    <input style="color: lightgray" readonly class="col-8" th:field="*{createdAt}">
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Email:</label>
+                    <input class="col-8" th:field="*{email}" >
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Kod pocztowy:</label>
+                    <input class="col-8" th:field="*{postalCode}" >
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Nowe hasło:</label>
+                    <input class="col-8" type="password" th:field="*{newPasswordFirst}" >
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Powtórz hasło:</label>
+                    <input class="col-8" type="password" th:field="*{newPasswordSecond}" >
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Aktualne hasło:</label>
+                    <input class="col-8" type="password" th:field="*{currentPassword}" >
+                </div>
+                <input class="btn btn-primary form-control" style="margin-left: 10px" type="submit" value="Aktualizuj dane">
+            </form>
+        </div>
+    </div>
+    <div class="page-divider">&nbsp;</div>
+    <div class="col" style="margin-right: 15px">
+        <th:block> <!-- Single item -->
+            <div class="row offer">
+                <div class="col-sm-3 offer-thumbnail">
+                    <img th:src="@{/images/logo.png}" width="200px">
+                </div>
+                <div class="col">
+                    <div class="offer-content">
+                        <a href="http://www.google.com">
+                            <p class="offer-title">Piła spalinowa !!</p>
+                            <p class="offer-desc">5KM, 500ccm 50cm prowadnica, świeżo naostrzony łańcuch</p>
+                            <div class="offer-auxData">
+                                Wygaśnie za 5dni
+                                <div style="text-align: right">
+                                    <b>50zł/dzień</b>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </th:block> <!-- Single item -->
     </div>
     <div id="footer" class="row justify-content-sm-center">
         <div class="page-divider">&nbsp;</div>
