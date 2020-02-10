@@ -36,16 +36,25 @@ public class Offer {
     @Column(name = "offer_cost")
     private Integer cost;
 
+    @Column(name = "offer_active")
+    private boolean isActive;
+
     /**
      * Mappings to other tables
      */
     @ManyToOne
     private User owner;
 
-    @OneToMany
-    @JoinTable(name = "who_used_offers")
-    private List<User> lenders;
+    // Wszystkie wypożyczenia
+    @OneToMany(mappedBy = "toolLended")
+    private List<Transaction> transactions;
 
+    // Kategoria przedmiotu
+    @OneToOne
+    @JoinTable(name = "categories_to_offers")
+    private Category category;
+
+    // Zdjęcia przedmiotu
     @OneToMany
     @JoinTable(name = "image_to_offer_map_table",
             joinColumns = @JoinColumn(name = "offer_origin_id", referencedColumnName = "offer_id"),

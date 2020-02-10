@@ -49,12 +49,6 @@ public class User {
     /**
      * Mappings to other tables
      */
-    @OneToMany(mappedBy = "owner")
-    private List<Opinion> issuedOpinions;
-
-    @OneToMany(mappedBy = "target")
-    private List<Opinion> receivedOpinions;
-
     @OneToMany(mappedBy = "receiver")
     private List<Message> receivedMessages;
 
@@ -62,14 +56,18 @@ public class User {
     private List<Message> sentMessages;
 
     @OneToMany(mappedBy = "owner")
+    private List<Opinion> issuedOpinions;
+
+    @OneToMany(mappedBy = "target")
+    private List<Opinion> receivedOpinions;
+
+    @OneToMany(mappedBy = "lender")
+    private List<Transaction> usedOffers;
+
+    @OneToMany(mappedBy = "owner")
     private List<Offer> createdOffers;
 
-    @JoinTable(name = "who_used_offers",
-            joinColumns = @JoinColumn(name = "lender_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "offer_id", referencedColumnName = "offer_id")
-    )
-    @OneToMany
-    private List<Offer> usedOffers;
+
 
 
 

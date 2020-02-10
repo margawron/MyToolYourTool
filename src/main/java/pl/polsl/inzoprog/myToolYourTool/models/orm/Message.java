@@ -31,5 +31,4 @@ public class Message {
     @ManyToOne
     private User receiver;
 
-
 }

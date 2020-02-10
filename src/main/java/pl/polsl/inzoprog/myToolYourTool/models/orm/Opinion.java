@@ -41,17 +41,20 @@ public class Opinion {
     /**
      * Mappings to other tables
      */
+    // Issued by
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 
+    // Issued to
     @ManyToOne
     @JoinColumn(name = "target_id")
     private User target;
 
+    // Origin of trasaction
     @ManyToOne
-    @JoinColumn(name = "offer_id")
-    private Offer originToolOffer;
+    @JoinColumn(name = "transaction_id")
+    private Transaction transaction;
 
 
 }
