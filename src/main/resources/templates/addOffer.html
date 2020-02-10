@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/head.html :: head">
+
+</head>
+<body id="body">
+<div class="container main-container" style="padding-top: 15px">
+    <div th:replace="fragments/headerFragment.html :: headerFragment(searchFrom=${searchForm}, username=${username}, time=${time}, loginForm=${loginForm})">
+
+    </div>
+    <div class="row" id="navBar">
+        <div class="col">
+            <a th:href="@{/}">Strona głowna</a>
+        </div>
+        <th:block th:if="${username != null}">
+            <div class="col">
+                <a id="current" th:href="@{/offer/createFromCategory}">Utwórz ofertę</a>
+            </div>
+        </th:block>
+        <th:block th:if="${username == null}">
+            <div class="col">
+                <a th:href="@{/login}">Login</a>
+            </div>
+            <div class="col">
+                <a th:href="@{/register}">Rejestracja</a>
+            </div>
+        </th:block>
+        <div class="col">
+            <a th:href="@{/search}">Wyszukaj</a>
+        </div>
+        <div class="col">
+            <a th:href="@{/profile}">Profil</a>
+        </div>
+        <div class="col">
+            <a th:href="@{/logout}">Wyloguj</a>
+        </div>
+    </div>
+    <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
+    <div class="row justify-content-sm-center" id="content">
+        <div class="col-sm-7" style="text-align: center" >
+            <p>Dodajesz narzędzie do kategorii: <b th:text="${category.categoryName}">debug_nazwa_kategorii</b></p>
+            <form action="#" method="post" th:action="@{/offer/create/{catId}(catId=${category.id})}" th:object="${addOfferForm}">
+                <p>Tytuł: <input style="width: 97%" th:field="*{title}" type="text"></p>
+                <p>Opis: <textarea style="width: 97%" rows="6" th:field="*{description}" type="text">Opisz jakoś swój sprzęt</textarea></p>
+                <p>Cena za dobę (zł):<input style="width: 97%" th:field="*{price}" type="text"></p>
+                <input class="btn btn-primary" style="display:block; width: available; margin: 0 auto" type="submit"
+                       value="Dodaj ofertę">
+            </form>
+        </div>
+    </div>
+    <div th:replace="fragments/footerFragment.html :: footerFragment"></div>
+</div>
+</body>
+</html>
