@@ -6,15 +6,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.EmailForm;
-import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.RegisterForm;
-import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
 import pl.polsl.inzoprog.myToolYourTool.services.RegisterService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Marcel Gawron
@@ -33,9 +30,7 @@ public class RegisterController {
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public String registerUser(Model model, @ModelAttribute RegisterForm registerFormModel, HttpServletRequest request){
-        model.addAttribute("searchForm", new SearchForm());
-        model.addAttribute("loginForm", new LoginForm());
-
+        loginService.preparePage(model);
 
         // Sprawdź czy nazwa użytkownika jest poprawna
         String message = "";
@@ -61,9 +56,8 @@ public class RegisterController {
 
     @RequestMapping(path = "/register", method = RequestMethod.GET)
     public String registerPage(Model model, HttpServletRequest request){
+        loginService.preparePage(model);
         model.addAttribute("registerFormModel", new RegisterForm());
-        model.addAttribute("loginForm", new LoginForm());
-        model.addAttribute("searchForm", new SearchForm());
         // Check if user is logged in
         if(loginService.isUserLoggedIn(request.getCookies())){
             return "redirect:/";
@@ -73,24 +67,20 @@ public class RegisterController {
     }
 
     @RequestMapping(path = "/forgottenPassword", method = RequestMethod.GET)
-    public String forgottenPassword(Model model, @ModelAttribute RegisterForm registerForm){
-        model.addAttribute("loginForm", new LoginForm());
-        model.addAttribute("searchForm", new SearchForm());
+    public String forgottenPassword(Model model, @ModelAttribute RegisterForm registerForm, HttpServletRequest request){
+        loginService.preparePath(model,request);
         model.addAttribute("emailForm", new EmailForm());
-        // TODO Check if user is logged in
-
 
         return "passwordRecovery";
     }
 
     @RequestMapping(path = "/forgottenPassword", method = RequestMethod.POST)
     public String checkIfEmailExistAndSendEmail(Model model){
-        model.addAttribute("loginForm", new LoginForm());
-        model.addAttribute("searchForm", new SearchForm());
+        loginService.preparePage(model);
         String response = "Jeżeli podany email istniał w bazie danych,<br> zostanie wysłany na niego email z instrukcjami<br>odzyskania hasła.";
 
 
-        // TODO
+        // TODO wyślij maila
 
         model.addAttribute("message",response);
         return "message";

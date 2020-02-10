@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
-import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
 
 import javax.servlet.http.Cookie;
@@ -29,8 +28,7 @@ public class LoginController {
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
     public String loginPage(Model model, HttpServletRequest request){
-        model.addAttribute("searchForm", new SearchForm());
-        model.addAttribute("loginForm", new LoginForm());
+        loginService.preparePage(model);
 
         Cookie[] cookies = request.getCookies();
         if(cookies == null){
@@ -44,8 +42,7 @@ public class LoginController {
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.POST)
     public String loginRequest(Model model, @ModelAttribute LoginForm loginForm, HttpServletResponse response){
-        model.addAttribute("searchForm", new SearchForm());
-        model.addAttribute("loginForm",new LoginForm());
+        loginService.preparePage(model);
 
         if(!loginService.loginWithConfirmation(loginForm, response)){
             model.addAttribute("message", "Nie można zalogować. Sprawdź czy podałeś poprawne dane");
@@ -57,8 +54,7 @@ public class LoginController {
 
     @RequestMapping(path = "/logout")
     public String logout(Model model, HttpServletRequest request){
-        model.addAttribute("searchForm", new SearchForm());
-        model.addAttribute("loginForm", new LoginForm());
+        loginService.preparePage(model);
 
         loginService.logout(request.getCookies());
 

@@ -33,23 +33,36 @@
             </form>
         </div>
         <div class="col-sm-4 label-text-color">
-            <form action="#" method="post" th:action="@{/login}" th:object="${loginForm}">
-                Login: <input th:field="*{username}" type="text"><br>
-                Hasło: <input th:field="*{password}" type="password">
-                <input class="btn btn-primary" style="margin: 0" type="submit" value="Zaloguj">
-            </form>
+            <th:block th:if="${username != null}">
+                Witaj <b th:text="${username}"></b><br>
+                Jest godzina <b th:text="${time}"></b>
+            </th:block>
+            <th:block th:if="${username == null}">
+                <form action="#" method="post" th:action="@{/login}" th:object="${loginForm}">
+                    Login: <input th:field="*{username}" type="text"><br>
+                    Hasło: <input th:field="*{password}" type="password">
+                    <input class="btn btn-primary" style="margin: 0" type="submit" value="Zaloguj">
+                </form>
+            </th:block>
         </div>
     </div>
     <div class="row" id="navBar">
         <div class="col">
             <a th:href="@{/}">Strona głowna</a>
         </div>
-        <div class="col">
-            <a th:href="@{/login}">Login</a>
-        </div>
-        <div class="col">
-            <a th:href="@{/register}">Rejestracja</a>
-        </div>
+        <th:block th:if="${username != null}">
+            <div class="col">
+                <a th:href="@{/createOffer}">Utwórz ofertę</a>
+            </div>
+        </th:block>
+        <th:block th:if="${username == null}">
+            <div class="col">
+                <a th:href="@{/login}">Login</a>
+            </div>
+            <div class="col">
+                <a th:href="@{/register}">Rejestracja</a>
+            </div>
+        </th:block>
         <div class="col">
             <a th:href="@{/search}">Wyszukaj</a>
         </div>

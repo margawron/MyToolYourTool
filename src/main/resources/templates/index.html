@@ -33,23 +33,36 @@
             </form>
         </div>
         <div class="col-sm-4 label-text-color">
-            <form action="#" method="post" th:action="@{/login}" th:object="${loginForm}">
-                Login: <input th:field="*{username}" type="text"><br>
-                Hasło: <input th:field="*{password}" type="password">
-                <input class="btn btn-primary" style="margin: 0" type="submit" value="Zaloguj">
-            </form>
+            <th:block th:if="${username != null}">
+                Witaj <b th:text="${username}"></b><br>
+                Jest godzina <b th:text="${time}"></b>
+            </th:block>
+            <th:block th:if="${username == null}">
+                <form action="#" method="post" th:action="@{/login}" th:object="${loginForm}">
+                    Login: <input th:field="*{username}" type="text"><br>
+                    Hasło: <input th:field="*{password}" type="password">
+                    <input class="btn btn-primary" style="margin: 0" type="submit" value="Zaloguj">
+                </form>
+            </th:block>
         </div>
     </div>
     <div class="row" id="navBar">
         <div class="col">
             <a id="current" th:href="@{/}">Strona głowna</a>
         </div>
-        <div class="col">
-            <a th:href="@{/login}">Login</a>
-        </div>
-        <div class="col">
-            <a th:href="@{/register}">Rejestracja</a>
-        </div>
+        <th:block th:if="${username != null}">
+            <div class="col">
+                <a th:href="@{/createOffer}">Utwórz ofertę</a>
+            </div>
+        </th:block>
+        <th:block th:if="${username == null}">
+            <div class="col">
+                <a th:href="@{/login}">Login</a>
+            </div>
+            <div class="col">
+                <a th:href="@{/register}">Rejestracja</a>
+            </div>
+        </th:block>
         <div class="col">
             <a th:href="@{/search}">Wyszukaj</a>
         </div>
@@ -119,29 +132,32 @@
         <!-- END OF MENU -->
         <!-- END OF MENU -->
         <!-- END OF MENU -->
+        <!-- Items -->
         <div class="col" style="margin-right: 15px">
-            <div class="row offer">
-                <div class="col-sm-3 offer-thumbnail">
-                    <img th:src="@{/images/logo.png}" width="200px">
-                </div>
-                <div class="col">
-                    <div class="offer-content">
-                        <a href="http://www.google.com">
-                            <p class="offer-title">Piła spalinowa !!</p>
-                            <p class="offer-desc">5KM, 500ccm 50cm prowadnica, świeżo naostrzony łańcuch</p>
-                            <div class="offer-auxData">
-                                Wygaśnie za 5dni
-                                <div style="text-align: right">
-                                    <b>50zł/dzień</b>
+            <th:block> <!-- Single item -->
+                <div class="row offer">
+                    <div class="col-sm-3 offer-thumbnail">
+                        <img th:src="@{/images/logo.png}" width="200px">
+                    </div>
+                    <div class="col">
+                        <div class="offer-content">
+                            <a href="http://www.google.com">
+                                <p class="offer-title">Piła spalinowa !!</p>
+                                <p class="offer-desc">5KM, 500ccm 50cm prowadnica, świeżo naostrzony łańcuch</p>
+                                <div class="offer-auxData">
+                                    Wygaśnie za 5dni
+                                    <div style="text-align: right">
+                                        <b>50zł/dzień</b>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </th:block> <!-- Single item -->
         </div>
     </div>
-    <div id="footer" class="row justify-content-sm-center">
+    <div class="row justify-content-sm-center" id="footer">
         <div class="page-divider">&nbsp;</div>
         <div class="col-sm-3" style="text-align: center">
             <p>MyToolYourTool &copy; 2020</p>
