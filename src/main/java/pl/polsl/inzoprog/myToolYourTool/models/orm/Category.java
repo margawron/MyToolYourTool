@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author Marcel Gawron
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "categories")
+
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,11 +22,14 @@ public class Category {
     private Long id;
 
     @Column(name = "category_is_parent")
-    private boolean isParent;
+    private boolean isThisParent;
 
     @Column(name = "category_name")
     private String categoryName;
 
     @ManyToOne
-    private Category parent;
+    private Category parentOfCategory;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Category> children;
 }

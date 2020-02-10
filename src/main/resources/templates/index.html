@@ -38,44 +38,21 @@
         <div class="col-sm-3" id="categories">
             <div class="categories-inside">
                 <div class="categories-header">Kategorie:<br></div>
-                <div class="btn-group dropright" style="margin-bottom: 10px">
-                    <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
-                            data-toggle="dropdown" type="button">
-                        Elektryczne
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Spawarki</a>
-                        <a class="dropdown-item" href="#">Wiertarki</a>
-                        <a class="dropdown-item" href="#">Szlifierki</a>
-                        <a class="dropdown-item" href="#">Urządzenia czyszczące</a>
+                <!-- Jedna kategoria -->
+                <th:block th:each="category : ${parentCategories}">
+                    <div class="btn-group dropright" style="margin-bottom: 10px">
+                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" th:utext="${category.categoryName}" type="button">
+                        </button>
+                        <div class="dropdown-menu">
+                            <th:block th:each="subcategory : ${category.children} ">
+                                <a class="dropdown-item" href="#" th:text="${subcategory.categoryName}"></a>
+                            </th:block>
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="btn-group dropright" style="margin-bottom: 10px">
-                    <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
-                            data-toggle="dropdown" type="button">
-                        Mechaniczne
-                    </button>
-                    <div aria-labelledby="mechanicalTools" class="dropdown-menu">
-                        <button class="dropdown-item" type="button">Klucze</button>
-                        <button class="dropdown-item" type="button">Wkrętaki</button>
-                        <button class="dropdown-item" type="button">Ściski</button>
-                        <button class="dropdown-item" type="button">Szczypce, nożyce, obcęgi</button>
-                    </div>
-                </div>
-                <br>
-                <div class="btn-group dropright" style="margin-bottom: 10px">
-                    <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
-                            data-toggle="dropdown" type="button">
-                        Spalinowe
-                    </button>
-                    <div aria-labelledby="gasolineTools" class="dropdown-menu">
-                        <button class="dropdown-item" type="button">Kosiarki</button>
-                        <button class="dropdown-item" type="button">Piły</button>
-                        <button class="dropdown-item" type="button">Zagęszczarki</button>
-                        <button class="dropdown-item" type="button">Agregaty prądotwórcze</button>
-                    </div>
-                </div>
+                    <br>
+                </th:block>
+                <!-- Jedna kategoria -->
             </div>
         </div>
         <!-- END OF MENU -->
