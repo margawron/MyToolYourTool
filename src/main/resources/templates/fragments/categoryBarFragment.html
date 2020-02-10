@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="categoryBarFragment(parentCategories)">
+<div class="col-sm-3" id="categories">
+    <div class="categories-inside">
+        <div class="categories-header">Kategorie:<br></div>
+        <!-- Jedna kategoria -->
+        <th:block th:each="category : ${parentCategories}">
+            <div class="btn-group dropright" style="margin-bottom: 10px">
+                <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
+                        data-toggle="dropdown" th:utext="${category.categoryName}" type="button">
+                </button>
+                <div class="dropdown-menu">
+                    <th:block th:each="subcategory : ${category.children} ">
+                        <a class="dropdown-item" href="#" th:text="${subcategory.categoryName}"></a>
+                    </th:block>
+                </div>
+            </div>
+            <br>
+        </th:block>
+        <!-- Jedna kategoria -->
+    </div>
+</div>
+</th:block>
+</body>
+</html>
