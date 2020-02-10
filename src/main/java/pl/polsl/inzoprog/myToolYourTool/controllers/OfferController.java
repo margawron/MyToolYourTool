@@ -5,8 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.polsl.inzoprog.myToolYourTool.models.forms.AddOfferForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.Offer;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
+import pl.polsl.inzoprog.myToolYourTool.services.CategoryService;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
 import pl.polsl.inzoprog.myToolYourTool.services.OfferService;
 
@@ -22,10 +24,12 @@ public class OfferController {
 
     private OfferService offerService;
     private LoginService loginService;
+    private CategoryService categoryService;
 
-    public OfferController(OfferService offerService, LoginService loginService){
+    public OfferController(OfferService offerService, LoginService loginService, CategoryService categoryService){
         this.offerService = offerService;
         this.loginService = loginService;
+        this.categoryService = categoryService;
     }
 
     @RequestMapping(path = "/offers/{offerId}", method = RequestMethod.GET)
@@ -53,11 +57,11 @@ public class OfferController {
         return "offerClientView";
     }
 
-    @RequestMapping(path = "/offer/add", method = RequestMethod.GET)
-    public String addOfferPage(Model model){
-        loginService.preparePage(model);
+    @RequestMapping(path = "/offer/createFromCategory", method = RequestMethod.GET)
+    public String createOfferFromCategory(Model model, HttpServletRequest request){
+        loginService.preparePath(model,request);
+        model.addAttribute("categories", categoryService.getParentCategories());
 
-
-        return "addOffer";
+        return "createFromCategory";
     }
 }

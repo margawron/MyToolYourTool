@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.Category;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 
@@ -13,4 +14,6 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 
     @Query("select c from Category c where c.parentOfCategory.id = ?1")
     List<Category> findChildren(Long parent);
+
+    Optional<Category> findById(Long id);
 }

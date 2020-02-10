@@ -5,6 +5,7 @@ import pl.polsl.inzoprog.myToolYourTool.models.orm.Category;
 import pl.polsl.inzoprog.myToolYourTool.repositories.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -27,6 +28,14 @@ public class CategoryService {
             category.setChildren(childrens);
         }
             return categories;
+    }
+
+    public Category getCategoryById(Long id){
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+        if(!optionalCategory.isPresent()){
+            return null;
+        }
+        return optionalCategory.get();
     }
 
 

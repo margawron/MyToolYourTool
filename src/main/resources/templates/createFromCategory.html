@@ -5,16 +5,14 @@
 </head>
 <body id="body">
 <div class="container main-container" style="padding-top: 15px">
-    <div th:replace="fragments/headerFragment.html :: headerFragment(searchFrom=${searchForm}, username=${username}, time=${time}, loginForm=${loginForm})">
-
-    </div>
+    <div th:replace="fragments/headerFragment.html :: headerFragment(searchFrom=${searchForm}, username=${username}, time=${time}, loginForm=${loginForm})"></div>
     <div class="row" id="navBar">
         <div class="col">
             <a th:href="@{/}">Strona głowna</a>
         </div>
         <th:block th:if="${username != null}">
             <div class="col">
-                <a th:href="@{/offer/createFromCategory}">Utwórz ofertę</a>
+                <a id="current" th:href="@{/offer/createFromCategory}">Utwórz ofertę</a>
             </div>
         </th:block>
         <th:block th:if="${username == null}">
@@ -36,10 +34,15 @@
         </div>
     </div>
     <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
-    <div class="row justify-content-sm-center" id="content">
-        <div class="col-sm-5" style="text-align: center" >
-            <p th:utext="${message}"></p>
-        </div>
+    <div class="row" style="margin-left:40px">
+            <th:block th:each="category : ${categories}">
+                <div class="col-sm-4">
+                    <p><b th:text="${category.categoryName}"></b></p>
+                    <th:block th:each="subcategory : ${category.children}">
+                        <p><a th:href="@{/offer/create/{catId}(catId=${subcategory.id})}" th:text="${subcategory.categoryName}"></a></p>
+                    </th:block>
+                </div>
+            </th:block>
     </div>
     <div th:replace="fragments/footerFragment.html :: footerFragment"></div>
 </div>
