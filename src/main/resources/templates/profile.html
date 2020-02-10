@@ -108,12 +108,7 @@
             </div>
         </th:block> <!-- Single item -->
     </div>
-    <div id="footer" class="row justify-content-sm-center">
-        <div class="page-divider">&nbsp;</div>
-        <div class="col-sm-3" style="text-align: center">
-            <p>MyToolYourTool &copy; 2020</p>
-        </div>
-    </div>
+    <div th:replace="fragments/footerFragment.html :: footerFragment"></div>
 </div>
 </body>
 </html>
