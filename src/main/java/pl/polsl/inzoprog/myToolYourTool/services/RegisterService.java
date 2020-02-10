@@ -1,6 +1,7 @@
 package pl.polsl.inzoprog.myToolYourTool.services;
 
 import org.springframework.stereotype.Service;
+import pl.polsl.inzoprog.myToolYourTool.models.forms.ProfileEditForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.RegisterForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.repositories.UserRepository;
@@ -9,6 +10,7 @@ import pl.polsl.inzoprog.myToolYourTool.utils.Constants;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Optional;
 
 /**
  * @author Marcel Gawron
@@ -95,6 +97,54 @@ public class RegisterService {
         return Integer.parseInt(postalCodeWithoutHyphen);
     }
 
+    public boolean updateUser(User loggedUser, ProfileEditForm editForm, String messageToBeReturned){
+        Optional<User> optionalUser = userRepository.findById(editForm.getId());
+        if(!optionalUser.isPresent()){
+            messageToBeReturned = "Dostęp zabroniony.";
+            return false;
+        }
+        User user = optionalUser.get();
+        if(!user.getId().equals(loggedUser.getId())){
+            messageToBeReturned = "Dostęp zabroniony.";
+            return false;
+        }
+
+        String hashedAndSaltedPassword = cryptoService.digestPassAndSalt(editForm.getCurrentPassword(),user.getPasswordSalt());
+        if(!hashedAndSaltedPassword.equals(user.getPassword())){
+            messageToBeReturned = "Podane aktualne hasło jest nie poprawne";
+            return false;
+        }
+        String password = editForm.getNewPasswordFirst();
+        if(!password.matches("^([A-Za-z0-9]){3,20}$") && !password.equals("")){
+            messageToBeReturned = "Hasło powinno mieć od 3 do 20 znaków<br> oraz zawierać same litery oraz cyfry";
+            return false;
+        }
+        if(!editForm.getNewPasswordFirst().equals(editForm.getNewPasswordSecond())){
+            messageToBeReturned = "Hasła nie są takie same.";
+            return false;
+        }
+
+        if(!editForm.getPostalCode().matches(Constants.postalCodeRegExp)){
+            messageToBeReturned = "Podany kod pocztowy nie jest prawidłowy.";
+            return false;
+        }
+
+        if(!editForm.getEmail().matches(Constants.emailRegExp)){
+            messageToBeReturned = "Mail nie jest poprawny";
+            return false;
+        }
+
+        // TODO check zapisz zmiany
+        user.setPostalCode(parsePostalCode(editForm.getPostalCode()));
+        user.setMail(editForm.getEmail());
+        if(!editForm.getNewPasswordFirst().equals("")){
+            user.setPasswordSalt(cryptoService.generateSalt());
+            user.setPassword(cryptoService.digestPassAndSalt(editForm.getNewPasswordFirst(),user.getPasswordSalt()));
+        }
+        userRepository.save(user);
+
+        return true;
+    }
 
 
 }
