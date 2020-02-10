@@ -5,7 +5,7 @@
 </head>
 <body id="body">
 <div class="container main-container" style="padding-top: 15px">
-    <div th:replace="fragments/headerFragment.html :: header(searchFrom=${searchForm}, username=${username}, time=${time}, loginForm=${loginForm})">
+    <div th:replace="fragments/headerFragment.html :: headerFragment(searchFrom=${searchForm}, username=${username}, time=${time}, loginForm=${loginForm})">
 
     </div>
     <div class="row" id="navBar">
