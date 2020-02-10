@@ -1,8 +1,9 @@
 package pl.polsl.inzoprog.myToolYourTool.services;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.ui.Model;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
+import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.repositories.UserRepository;
 
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 /**
@@ -27,6 +30,26 @@ public class LoginService {
     public LoginService(UserRepository userRepository, CryptoService cryptoService){
         this.userRepository = userRepository;
         this.cryptoService = cryptoService;
+    }
+
+    public void preparePath(Model model, HttpServletRequest request){
+        preparePage(model);
+        prepareWelcomeMessagesForUser(model, request);
+    }
+
+    public void preparePage(Model model){
+        // For search form
+        model.addAttribute("searchForm", new SearchForm());
+        // For login form
+        model.addAttribute("loginForm", new LoginForm());
+    }
+
+    public void prepareWelcomeMessagesForUser(Model model, HttpServletRequest request){
+        User loggedUser = getLoggedUser(request.getCookies());
+        if(loggedUser != null){
+            model.addAttribute("username", loggedUser.getName());
+            model.addAttribute("time", DateTimeFormatter.ofPattern("HH:mm").format(LocalTime.now()));
+        }
     }
 
     public User findUser(String username){
@@ -125,13 +148,64 @@ public class LoginService {
         if(cookieUsername == null || cookieToken == null){
 
         }
+
         Optional<User> userOptional = userRepository.findByName(cookieUsername);
         if(!userOptional.isPresent()){
             return;
         }
+
         User user = userOptional.get();
+
+
         user.setTokenExpiryDate(null);
         user.setLoginToken(null);
         userRepository.save(user);
     }
+
+   public User getLoggedUser(Cookie[] cookies){
+        if(cookies == null){
+            return null;
+        }
+        String usernameCookie = null;
+        String cookieToken = null;
+        for(Cookie cookie: cookies){
+            if(cookie.getName().equals("username")){
+                usernameCookie = cookie.getValue();
+            } else if(cookie.getName().equals("token")){
+                cookieToken = cookie.getValue();
+            }
+        }
+        Optional<User> optionalUser = userRepository.findByName(usernameCookie);
+        if(!optionalUser.isPresent()){
+            return null;
+        }
+        User user = optionalUser.get();
+       // Taki użytkownik nie istnieje
+       if(user == null){
+           return null;
+       }
+       // Token od użytkownika nie jest taki sam jak w bazie danych
+       if(user.getLoginToken() == null || !user.getLoginToken().equals(cookieToken)){
+           return null;
+       }
+       // Token wygasł
+       if(!LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC).isBefore(user.getTokenExpiryDate())){
+           return null;
+       }
+        return user;
+   }
+
+   public boolean checkUserPasswordById(Long id, String password){
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(!optionalUser.isPresent()){
+            return false;
+        }
+        User user = optionalUser.get();
+        String hashedAndSaltedPassword = cryptoService.digestPassAndSalt(password,user.getPasswordSalt());
+        if(hashedAndSaltedPassword.equals(user.getPassword())){
+            return true;
+        }
+        return false;
+
+   }
 }
