@@ -118,10 +118,11 @@ public class OfferController {
         User user = loginService.getLoggedUser(request.getCookies());
 
         // TODO make template
+        // TODO allow for photo uploading
 
         if(user != null && user.getId().equals(offer.getOwner().getId())){
             model.addAttribute("offer", offer);
-            return "offerClientView";
+            return "offerOwnerView";
         }
         model.addAttribute("offer", offer);
         return "offerClientView";

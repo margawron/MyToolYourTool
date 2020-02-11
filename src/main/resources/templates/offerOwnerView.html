@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/head.html :: head">
+
+</head>
+<body id="body">
+<div class="container main-container" style="padding-top: 15px">
+    <div th:replace="fragments/headerFragment.html :: headerFragment(searchFrom=${searchForm}, username=${username}, time=${time}, loginForm=${loginForm})">
+
+    </div>
+    <div class="row" id="navBar">
+        <div class="col">
+            <a th:href="@{/}">Strona głowna</a>
+        </div>
+        <th:block th:if="${username != null}">
+            <div class="col">
+                <a th:href="@{/offer/createFromCategory}">Utwórz ofertę</a>
+            </div>
+        </th:block>
+        <th:block th:if="${username == null}">
+            <div class="col">
+                <a th:href="@{/login}">Login</a>
+            </div>
+            <div class="col">
+                <a th:href="@{/register}">Rejestracja</a>
+            </div>
+        </th:block>
+        <div class="col">
+            <a id="current" th:href="@{/search}">Wyszukaj</a>
+        </div>
+        <div class="col">
+            <a th:href="@{/profile}">Profil</a>
+        </div>
+        <div class="col">
+            <a th:href="@{/logout}">Wyloguj</a>
+        </div>
+    </div>
+    <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
+    <div class="row justify-content-sm-center">
+        <th:block th:if="${offer.offerImages.size() != 0}">
+            <h3>Zdjęcia:</h3>
+            <th:block  th:each="image : ${offer.offerImages}">
+                <img th:src="@{/images/get/${image}}" >
+            </th:block>
+        </th:block>
+        <div class="col-sm-8" style="width: 300px; float: none; margin: 0 auto">
+            <form action="#" method="post" th:action="@{/updateProfile}" th:object="${offer}" >
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">ID:</label>
+                    <input style="color: lightgray" readonly class="col-8" th:field="*{id}">
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Tytuł:</label>
+                    <input class="col-8" th:field="*{title}" >
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Opis:</label>
+                    <textarea class="col-8" rows="6" th:field="*{description}" ></textarea>
+                </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label padding-top-none">Aktywna:</label>
+                    <input type="checkbox" th:field="*{active}">
+                </div>
+
+                <input class="btn btn-primary form-control" style="margin-left: 10px" type="submit" value="Aktualizuj dane">
+            </form>
+        </div>
+    </div>
+    <div th:replace="fragments/footerFragment.html :: footerFragment"></div>
+</div>
+</body>
+</html>
