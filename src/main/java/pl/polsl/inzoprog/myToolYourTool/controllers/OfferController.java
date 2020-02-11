@@ -96,8 +96,7 @@ public class OfferController {
         }
 
         Offer addedOffer = offerService.addOffer(loggedUser, offerForm, itemCategory);
-
-        // TODO redirect to created offer
+        // Redirect to created offer
         return "redirect:/offer/view/" + addedOffer.getId().toString();
     }
 
