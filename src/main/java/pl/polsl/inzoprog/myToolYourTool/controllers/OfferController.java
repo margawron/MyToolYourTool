@@ -13,6 +13,7 @@ import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.services.CategoryService;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
 import pl.polsl.inzoprog.myToolYourTool.services.OfferService;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -117,15 +118,25 @@ public class OfferController {
 
         User user = loginService.getLoggedUser(request.getCookies());
 
-        // TODO make template
-        // TODO allow for photo uploading
 
         if(user != null && user.getId().equals(offer.getOwner().getId())){
             model.addAttribute("offer", offer);
+
+            // TODO allow for photo uploading
+
             return "offerOwnerView";
         }
+        // TODO make better template for viewing offers
         model.addAttribute("offer", offer);
         return "offerClientView";
+    }
+
+
+    @RequestMapping(path = "/offer/update/{offerId}", method = RequestMethod.POST)
+    public String updateSingleOffer(Model model, @PathVariable(value = "offerId")final Long id, HttpServletRequest request){
+        loginService.preparePath(model, request);
+        // TODO implement
+        throw new NotImplementedException();
     }
 
 
