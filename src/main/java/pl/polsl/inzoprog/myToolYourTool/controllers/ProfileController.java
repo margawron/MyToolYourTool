@@ -59,12 +59,12 @@ public class ProfileController {
 
     @RequestMapping(path = "/updateProfile", method = RequestMethod.POST)
     public String updateProfile(Model model, @ModelAttribute ProfileEditForm editForm, HttpServletRequest request) {
-        loginService.preparePage(model);
+        loginService.preparePath(model, request);
 
         User loggedUser = loginService.getLoggedUser(request.getCookies());
-        String returnMessage = "";
+        StringBuilder returnMessage = new StringBuilder("");
         if (!registerService.updateUser(loggedUser, editForm, returnMessage)) {
-            model.addAttribute("message", returnMessage);
+            model.addAttribute("message", returnMessage.toString());
             return "message";
         }
 
