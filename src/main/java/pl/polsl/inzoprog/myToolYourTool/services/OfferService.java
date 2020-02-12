@@ -7,6 +7,14 @@ import pl.polsl.inzoprog.myToolYourTool.models.orm.Offer;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.repositories.OfferRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Id;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +27,11 @@ import java.util.Optional;
 public class OfferService {
 
     private OfferRepository offerRepository;
+    private EntityManagerFactory entityManagerFactory;
 
-    public OfferService(OfferRepository offerRepository) {
+    public OfferService(OfferRepository offerRepository, EntityManagerFactory entityManagerFactory) {
         this.offerRepository = offerRepository;
+        this.entityManagerFactory = entityManagerFactory;
     }
 
     public Offer getOfferById(Long id) {
@@ -30,6 +40,18 @@ public class OfferService {
             return null;
         }
         return offerOptional.get();
+    }
+
+    public List<Offer> getLastActiveOffers(){
+        return offerRepository.findTop20ByIsActiveIsTrue();
+    }
+
+    public List<Offer> getLastestNeighbourhoodOffers(Integer postalCode){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        TypedQuery<Offer> typedQuery = em.createQuery("select o from Offer o where o.isActive = true and CONCAT(o.owner.postalCode,'') like concat(:postalCode,'') ORDER BY o.id", Offer.class);
+        typedQuery.setMaxResults(20);
+        typedQuery.setParameter("postalCode", postalCode);
+        return typedQuery.getResultList();
     }
 
     public List<Offer> getUserOffers(Long id){
