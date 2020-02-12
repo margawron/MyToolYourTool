@@ -58,6 +58,10 @@ public class OfferService {
         return offerRepository.getOfferByOwnerId(id);
     }
 
+    public List<Offer> getOfferFromCategory(Long categoryId){
+        return offerRepository.findTop20ByCategoryId(categoryId);
+    }
+
     public Offer addOffer(User owner, AddOfferForm offerForm, Category category) {
         Offer createdOffer = new Offer();
         createdOffer.setTitle(offerForm.getTitle());

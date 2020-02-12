@@ -17,7 +17,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <th:block th:each="subcategory : ${category.children} ">
-                            <a class="dropdown-item" th:href="@{/offer/view/{catId}(catId=${subcategory.id})}"
+                            <a class="dropdown-item" th:href="@{/category/view/{catId}(catId=${subcategory.id})}"
                                th:text="${subcategory.categoryName}"></a>
                         </th:block>
                     </div>
