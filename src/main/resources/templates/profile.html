@@ -78,20 +78,20 @@
     </div>
     <div class="page-divider">&nbsp;</div>
     <div class="col" style="margin-right: 15px">
-        <th:block> <!-- Single item -->
+        <th:block th:if="${userOffers.size() > 0}" th:each="item : ${userOffers}"> <!-- Single item -->
             <div class="row offer">
                 <div class="col-sm-3 offer-thumbnail">
-                    <img th:src="@{/images/logo.png}" width="200px">
+                    <img th:if="${item.offerImages.size() > 0}" th:src="@{/images/{offerPhoto}(offerPhoto=${item.offerImages.get(0)})}" width="200px">
                 </div>
                 <div class="col">
                     <div class="offer-content">
-                        <a href="http://www.google.com">
-                            <p class="offer-title">Piła spalinowa !!</p>
-                            <p class="offer-desc">5KM, 500ccm 50cm prowadnica, świeżo naostrzony łańcuch</p>
+                        <a th:href="@{/offer/view/{offerId}(offerId=${item.id})}">
+                            <p th:text="${item.title}" class="offer-title">tytul</p>
+                            <p th:text="${item.description}" class="offer-desc">opis</p>
                             <div class="offer-auxData">
-                                Wygaśnie za 5dni
+                                <th:block th:text="'Wygaśnie ' + ${item.timeOfExpiration.toLocalDate()}"></th:block>
                                 <div style="text-align: right">
-                                    <b>50zł/dzień</b>
+                                    <b th:text="${item.cost}+'zł/dzień'"></b>
                                 </div>
                             </div>
                         </a>

@@ -8,6 +8,7 @@ import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.repositories.OfferRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -29,6 +30,10 @@ public class OfferService {
             return null;
         }
         return offerOptional.get();
+    }
+
+    public List<Offer> getUserOffers(Long id){
+        return offerRepository.getOfferByOwnerId(id);
     }
 
     public Offer addOffer(User owner, AddOfferForm offerForm, Category category) {

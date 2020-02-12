@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.ProfileEditForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
+import pl.polsl.inzoprog.myToolYourTool.services.OfferService;
 import pl.polsl.inzoprog.myToolYourTool.services.RegisterService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +22,12 @@ public class ProfileController {
 
     private LoginService loginService;
     private RegisterService registerService;
+    private OfferService offerService;
 
-    public ProfileController(LoginService loginService, RegisterService registerService) {
+    public ProfileController(LoginService loginService, RegisterService registerService, OfferService offerService) {
         this.loginService = loginService;
         this.registerService = registerService;
+        this.offerService = offerService;
     }
 
     @RequestMapping(path = {"/profile"}, method = RequestMethod.GET)
@@ -50,6 +53,7 @@ public class ProfileController {
 
         pef.setPostalCode(sb.toString());
         model.addAttribute("profileEditForm", pef);
+        model.addAttribute("userOffers", offerService.getUserOffers(user.getId()));
         return "profile";
     }
 
