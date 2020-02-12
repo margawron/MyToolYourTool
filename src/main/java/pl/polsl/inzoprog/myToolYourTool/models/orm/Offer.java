@@ -18,7 +18,7 @@ import java.util.List;
 public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "offer_id",insertable = false, updatable = false)
+    @Column(name = "offer_id", insertable = false, updatable = false)
     private Long id;
 
     @Column(name = "offer_title")

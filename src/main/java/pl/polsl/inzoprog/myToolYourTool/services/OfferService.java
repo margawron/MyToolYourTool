@@ -6,7 +6,6 @@ import pl.polsl.inzoprog.myToolYourTool.models.orm.Category;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.Offer;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.repositories.OfferRepository;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -20,19 +19,19 @@ public class OfferService {
 
     private OfferRepository offerRepository;
 
-    public OfferService(OfferRepository offerRepository){
+    public OfferService(OfferRepository offerRepository) {
         this.offerRepository = offerRepository;
     }
 
-    public Offer getOfferById(Long id){
+    public Offer getOfferById(Long id) {
         Optional<Offer> offerOptional = offerRepository.findById(id);
-        if(!offerOptional.isPresent()){
+        if (!offerOptional.isPresent()) {
             return null;
         }
         return offerOptional.get();
     }
 
-    public Offer addOffer(User owner, AddOfferForm offerForm, Category category){
+    public Offer addOffer(User owner, AddOfferForm offerForm, Category category) {
         Offer createdOffer = new Offer();
         createdOffer.setTitle(offerForm.getTitle());
         createdOffer.setDescription(offerForm.getDescription());
@@ -47,22 +46,22 @@ public class OfferService {
         return offerRepository.save(createdOffer);
     }
 
-    public boolean isCorrectForm(AddOfferForm form, String outMessage){
-        if(form.getTitle().length()<3){
+    public boolean isCorrectForm(AddOfferForm form, String outMessage) {
+        if (form.getTitle().length() < 3) {
             outMessage = "Tytuł jest za krótki";
             return false;
         }
-        if(form.getDescription().length()<10){
+        if (form.getDescription().length() < 10) {
             outMessage = "Opis jest z krótki";
             return false;
         }
         Integer price;
-        try{
+        try {
             price = Integer.parseInt(form.getPrice());
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             price = null;
         }
-        if(price == null){
+        if (price == null) {
             outMessage = "Cena wynajmu jest nieprawidłowa";
             return false;
         }

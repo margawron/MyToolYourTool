@@ -2,7 +2,6 @@ package pl.polsl.inzoprog.myToolYourTool.models.orm;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -66,10 +65,6 @@ public class User {
 
     @OneToMany(mappedBy = "owner")
     private List<Offer> createdOffers;
-
-
-
-
 
 
 }

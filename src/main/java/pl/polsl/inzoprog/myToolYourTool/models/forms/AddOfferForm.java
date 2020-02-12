@@ -1,7 +1,5 @@
 package pl.polsl.inzoprog.myToolYourTool.models.forms;
 
-import java.time.LocalDateTime;
-
 /**
  * @author Marcel Gawron
  * @version 1.0

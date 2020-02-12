@@ -35,14 +35,15 @@
     </div>
     <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
     <div class="row" style="margin-left:40px">
-            <th:block th:each="category : ${categories}">
-                <div class="col-sm-4">
-                    <p><b th:text="${category.categoryName}"></b></p>
-                    <th:block th:each="subcategory : ${category.children}">
-                        <p><a th:href="@{/offer/create/{catId}(catId=${subcategory.id})}" th:text="${subcategory.categoryName}"></a></p>
-                    </th:block>
-                </div>
-            </th:block>
+        <th:block th:each="category : ${categories}">
+            <div class="col-sm-4">
+                <p><b th:text="${category.categoryName}"></b></p>
+                <th:block th:each="subcategory : ${category.children}">
+                    <p><a th:href="@{/offer/create/{catId}(catId=${subcategory.id})}"
+                          th:text="${subcategory.categoryName}"></a></p>
+                </th:block>
+            </div>
+        </th:block>
     </div>
     <div th:replace="fragments/footerFragment.html :: footerFragment"></div>
 </div>

@@ -10,7 +10,7 @@
     </div>
     <div class="row" id="navBar">
         <div class="col">
-            <a  th:href="@{/}">Strona głowna</a>
+            <a th:href="@{/}">Strona głowna</a>
         </div>
         <div class="col">
             <a id="current" th:href="@{/login}">Login</a>
@@ -38,7 +38,8 @@
                 <p>Login: <input style="width: 97%" th:field="*{username}" type="text"></p>
                 <p>Hasło: <input style="width: 97%" th:field="*{password}" type="password"></p>
                 <a th:href="@{/forgottenPassword}">Nie pamiętasz hasła?</a>
-                <input class="btn btn-primary" style="display:block; width: available; margin: 0 auto" type="submit" value="Zaloguj">
+                <input class="btn btn-primary" style="display:block; width: available; margin: 0 auto" type="submit"
+                       value="Zaloguj">
             </form>
         </div>
     </div>

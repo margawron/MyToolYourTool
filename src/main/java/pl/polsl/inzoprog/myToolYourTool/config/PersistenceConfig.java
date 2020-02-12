@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories("pl.polsl.inzoprog.myToolYourTool.repositories")
-@PropertySource({"classpath:jdbc_config.properties","classpath:application.properties"})
+@PropertySource({"classpath:jdbc_config.properties", "classpath:application.properties"})
 @EnableConfigurationProperties
 public class PersistenceConfig {
     @Value("${spring.datasource.driver-class-name}")

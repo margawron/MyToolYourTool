@@ -18,17 +18,18 @@ public class BlobController {
 
     private ImageService imageService;
 
-    public BlobController(ImageService imageService){
+    public BlobController(ImageService imageService) {
         this.imageService = imageService;
     }
 
     @RequestMapping(path = "/image/get/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
-    public @ResponseBody byte[] sendSingleImage(@PathVariable(value = "id")final Long id){
-        if(id == null){
+    public @ResponseBody
+    byte[] sendSingleImage(@PathVariable(value = "id") final Long id) {
+        if (id == null) {
             return null;
         }
         Image image = imageService.getImageById(id);
-        if(image == null){
+        if (image == null) {
             return null;
         }
         return image.getImageBytes();

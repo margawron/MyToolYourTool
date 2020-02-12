@@ -17,29 +17,29 @@ public class CategoryService {
 
     private CategoryRepository categoryRepository;
 
-    public CategoryService(CategoryRepository categoryRepository){
+    public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<Category> getParentCategories(){
+    public List<Category> getParentCategories() {
         List<Category> categories = categoryRepository.findParents();
-        for(Category category: categories){
+        for (Category category : categories) {
             List<Category> childrens = categoryRepository.findChildren(category.getId());
             category.setChildren(childrens);
         }
-            return categories;
+        return categories;
     }
 
-    public Category getCategoryById(Long id){
+    public Category getCategoryById(Long id) {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
-        if(!optionalCategory.isPresent()){
+        if (!optionalCategory.isPresent()) {
             return null;
         }
         return optionalCategory.get();
     }
 
 
-    private void init(){
+    private void init() {
 
         // parent
         Category elektryczne = new Category();

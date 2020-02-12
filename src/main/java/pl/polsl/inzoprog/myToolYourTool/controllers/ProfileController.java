@@ -22,14 +22,14 @@ public class ProfileController {
     private LoginService loginService;
     private RegisterService registerService;
 
-    public ProfileController(LoginService loginService, RegisterService registerService){
+    public ProfileController(LoginService loginService, RegisterService registerService) {
         this.loginService = loginService;
-        this.registerService =registerService;
+        this.registerService = registerService;
     }
 
     @RequestMapping(path = {"/profile"}, method = RequestMethod.GET)
-    public String getUserProfile(Model model, HttpServletRequest request){
-        if(!loginService.isUserLoggedIn(request.getCookies())){
+    public String getUserProfile(Model model, HttpServletRequest request) {
+        if (!loginService.isUserLoggedIn(request.getCookies())) {
             return "redirect:/login";
         }
 
@@ -46,7 +46,7 @@ public class ProfileController {
 
         StringBuilder sb = new StringBuilder();
         sb.append(user.getPostalCode().toString());
-        sb.insert(2,'-');
+        sb.insert(2, '-');
 
         pef.setPostalCode(sb.toString());
         model.addAttribute("profileEditForm", pef);
@@ -54,12 +54,12 @@ public class ProfileController {
     }
 
     @RequestMapping(path = "/updateProfile", method = RequestMethod.POST)
-    public String updateProfile(Model model, @ModelAttribute ProfileEditForm editForm, HttpServletRequest request){
+    public String updateProfile(Model model, @ModelAttribute ProfileEditForm editForm, HttpServletRequest request) {
         loginService.preparePage(model);
 
         User loggedUser = loginService.getLoggedUser(request.getCookies());
         String returnMessage = "";
-        if(!registerService.updateUser(loggedUser,editForm,returnMessage)){
+        if (!registerService.updateUser(loggedUser, editForm, returnMessage)) {
             model.addAttribute("message", returnMessage);
             return "message";
         }

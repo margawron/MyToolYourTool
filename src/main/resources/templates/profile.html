@@ -38,40 +38,41 @@
     <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
     <div class="row justify-content-sm-center">
         <div class="col-sm-5" style="width: 300px; float: none; margin: 0 auto">
-            <form action="#" method="post" th:action="@{/updateProfile}" th:object="${profileEditForm}" >
+            <form action="#" method="post" th:action="@{/updateProfile}" th:object="${profileEditForm}">
                 <div class="form-group row">
                     <label class="col-4 col-form-label padding-top-none">ID:</label>
-                    <input style="color: lightgray" readonly class="col-8" th:field="*{id}">
+                    <input class="col-8" readonly style="color: lightgray" th:field="*{id}">
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-form-label padding-top-none">Nazwa użytkownika:</label>
-                    <input style="color: lightgray" readonly class="col-8" th:field="*{username}">
+                    <input class="col-8" readonly style="color: lightgray" th:field="*{username}">
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-form-label padding-top-none">Data dołączenia:</label>
-                    <input style="color: lightgray" readonly class="col-8" th:field="*{createdAt}">
+                    <input class="col-8" readonly style="color: lightgray" th:field="*{createdAt}">
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-form-label padding-top-none">Email:</label>
-                    <input class="col-8" th:field="*{email}" >
+                    <input class="col-8" th:field="*{email}">
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-form-label padding-top-none">Kod pocztowy:</label>
-                    <input class="col-8" th:field="*{postalCode}" >
+                    <input class="col-8" th:field="*{postalCode}">
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-form-label padding-top-none">Nowe hasło:</label>
-                    <input class="col-8" type="password" th:field="*{newPasswordFirst}" >
+                    <input class="col-8" th:field="*{newPasswordFirst}" type="password">
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-form-label padding-top-none">Powtórz hasło:</label>
-                    <input class="col-8" type="password" th:field="*{newPasswordSecond}" >
+                    <input class="col-8" th:field="*{newPasswordSecond}" type="password">
                 </div>
                 <div class="form-group row">
                     <label class="col-4 col-form-label padding-top-none">Aktualne hasło:</label>
-                    <input class="col-8" type="password" th:field="*{currentPassword}" >
+                    <input class="col-8" th:field="*{currentPassword}" type="password">
                 </div>
-                <input class="btn btn-primary form-control" style="margin-left: 10px" type="submit" value="Aktualizuj dane">
+                <input class="btn btn-primary form-control" style="margin-left: 10px" type="submit"
+                       value="Aktualizuj dane">
             </form>
         </div>
     </div>

@@ -19,14 +19,14 @@ public class IndexController {
     private LoginService loginService;
     private CategoryService categoryService;
 
-    public IndexController(LoginService loginService, CategoryService categoryService){
+    public IndexController(LoginService loginService, CategoryService categoryService) {
         this.loginService = loginService;
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value = {"/","/index"})
-    public String homepage(Model model, HttpServletRequest request){
-        loginService.preparePath(model,request);
+    @RequestMapping(value = {"/", "/index"})
+    public String homepage(Model model, HttpServletRequest request) {
+        loginService.preparePath(model, request);
         model.addAttribute("parentCategories", categoryService.getParentCategories());
 
         return "index";
