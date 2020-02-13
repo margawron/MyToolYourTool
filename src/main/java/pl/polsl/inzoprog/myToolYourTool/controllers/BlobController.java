@@ -69,6 +69,9 @@ public class BlobController {
         }
 
         Image image = new Image();
+        if(file.getSize() == 0){
+            return "redirect:/offer/view/" + offerId;
+        }
         try {
             image.setImageBytes(file.getBytes());
         } catch (IOException e){

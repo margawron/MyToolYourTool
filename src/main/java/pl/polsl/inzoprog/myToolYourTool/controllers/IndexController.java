@@ -3,12 +3,14 @@ package pl.polsl.inzoprog.myToolYourTool.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.polsl.inzoprog.myToolYourTool.models.orm.Offer;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.services.CategoryService;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
 import pl.polsl.inzoprog.myToolYourTool.services.OfferService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 /**
@@ -35,9 +37,13 @@ public class IndexController {
 
         User user = loginService.getLoggedUser(request.getCookies());
         if(user == null){
-            model.addAttribute("offers", offerService.getLastActiveOffers());
+            List<Offer> offerList = offerService.getLastActiveOffers();
+
+            model.addAttribute("offers", offerList);
         }else{
-            model.addAttribute("offers", offerService.getLastestNeighbourhoodOffers(user.getPostalCode()));
+            List<Offer> offerList = offerService.getLastestNeighbourhoodOffers(user.getPostalCode());
+
+            model.addAttribute("offers", offerList);
         }
 
         return "index";

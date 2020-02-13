@@ -41,7 +41,7 @@
             <th:block th:if="${offers.size() > 0}" th:each="item : ${offers}"> <!-- Single item -->
                 <div class="row offer">
                     <div class="col-sm-3 offer-thumbnail">
-                        <img th:if="${item.offerImages.size() > 0}" th:src="@{/images/{offerPhoto}(offerPhoto=${item.offerImages.get(0)})}" width="200px">
+                        <img th:if="${item.offerImages.size() > 0}" th:src="@{/image/get/{offerPhoto}(offerPhoto=${item.offerImages.get(0).getId()})}" width="200px">
                     </div>
                     <div class="col">
                         <div class="offer-content">
