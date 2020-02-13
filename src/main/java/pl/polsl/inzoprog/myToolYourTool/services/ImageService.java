@@ -27,4 +27,8 @@ public class ImageService {
         return img.get();
     }
 
+    public Image addImage(Image image){
+        return imageRepository.save(image);
+    }
+
 }
