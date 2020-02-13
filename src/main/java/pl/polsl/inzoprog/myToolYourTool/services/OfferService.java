@@ -68,7 +68,12 @@ public class OfferService {
     }
 
     public List<Offer> getUserOffers(Long id){
-        return offerRepository.getOfferByOwnerId(id);
+        List<Offer> offerList = offerRepository.getOfferByOwnerId(id);
+        for(Offer offer : offerList){
+            List<Image> images = getSingleImageOfOffer(offer.getId());
+            offer.setOfferImages(images);
+        }
+        return offerList;
     }
 
     public List<Offer> getOfferFromCategory(Long categoryId){
