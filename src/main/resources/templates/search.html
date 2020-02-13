@@ -32,11 +32,12 @@
             <div class="col">
                 <a th:href="@{/logout}">Wyloguj</a>
             </div>
-        </div>
+</div>
         <div align="center" style="margin-top: 50px">
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Wpisz frazę" size="50px">
-
-            <button class="search-button">Wyszukaj</button>
+            <form action="#" method="post" th:action="@{/search}" th:object="${searchForm}">
+                <input style="width: 35%" th:field="*{search}" type="text" placeholder="Wpisz frazę"></input>
+                <input class="search-button" type="submit" value="Wyszukaj"></input>
+            </form>
         </div>
     <div th:replace="fragments/footerFragment.html :: footerFragment"></div>
 </div>
