@@ -1,5 +1,6 @@
 package pl.polsl.inzoprog.myToolYourTool.services;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.AddOfferForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.Category;
@@ -50,6 +51,19 @@ public class OfferService {
         TypedQuery<Offer> typedQuery = em.createQuery("select o from Offer o where o.isActive = true and CONCAT(o.owner.postalCode,'') like concat(:postalCode,'') ORDER BY o.id", Offer.class);
         typedQuery.setMaxResults(20);
         typedQuery.setParameter("postalCode", postalCode);
+        List<Offer> resultList = typedQuery.getResultList();
+        for(Offer result : resultList){
+            List<Image> images = getSingleImageOfOffer(result.getId());
+            result.setOfferImages(images);
+        }
+        return resultList;
+    }
+
+    public List<Image> getSingleImageOfOffer(Long id){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        TypedQuery<Image> typedQuery = em.createQuery(    "select i from Image i where i.originOffer.id = :offerId", Image.class);
+        typedQuery.setMaxResults(1);
+        typedQuery.setParameter("offerId", id);
         return typedQuery.getResultList();
     }
 
@@ -58,7 +72,12 @@ public class OfferService {
     }
 
     public List<Offer> getOfferFromCategory(Long categoryId){
-        return offerRepository.findTop20ByCategoryId(categoryId);
+        List<Offer> offerList = offerRepository.findTop20ByCategoryId(categoryId);
+        for(Offer result : offerList){
+            List<Image> images = getSingleImageOfOffer(result.getId());
+            result.setOfferImages(images);
+        }
+        return offerList;
     }
 
     public List<Image> getOfferImages(Long offerId){
