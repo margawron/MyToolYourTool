@@ -38,10 +38,16 @@
     <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
     <div class="row justify-content-sm-center">
         <th:block th:if="${offer.offerImages.size() != 0}">
-            <h3>Zdjęcia:</h3>
-            <th:block th:each="image : ${offer.offerImages}">
-                <img th:src="@{/images/get/${image.id}}">
-            </th:block>
+            <div class="col-md-8">
+                <h3>Zdjęcia:</h3><br>
+            </div>
+            <div class="row" style="margin-bottom: 20px">
+                <div class="col-md-6" th:each="image : ${offer.offerImages}">
+                    <a th:href="@{/image/get/{image}(image=${image.id})}">
+                        <img style="width: 500px" th:src="@{/image/get/{image}(image=${image.id})}" >
+                    </a>
+                </div>
+            </div>
         </th:block>
         <div class="col-sm-7">
             <p th:utext="${offer.title}"></p>

@@ -37,11 +37,25 @@
     </div>
     <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
     <div class="row justify-content-sm-center">
+        <div class="col-sm-8" style="text-align: center">
+            <form action="#" enctype="multipart/form-data" method="post" th:action="@{/image/upload/{offerId}(offerId = ${offer.id})}" >
+                <p>Zdjęcie do dodania:</p>
+                <p><input type="file" name="file" value="Wybierz zdjęcie"/></p>
+                <p><input class="btn btn-primary" style="width: 300px" type="submit" value="Dodaj zdjęcie" /></p>
+            </form>
+        </div>
+        <div class="page-divider">&nbsp;</div>
         <th:block th:if="${offer.offerImages.size() != 0}">
-            <h3>Zdjęcia:</h3>
-            <th:block th:each="image : ${offer.offerImages}">
-                <img th:src="@{/images/get/${image}}">
-            </th:block>
+            <div class="col-md-8">
+                <h3>Zdjęcia:</h3><br>
+            </div>
+            <div class="row" style="margin-bottom: 20px">
+                <div class="col-md-6" th:each="image : ${offer.offerImages}">
+                    <a th:href="@{/image/get/{image}(image=${image.id})}">
+                        <img style="width: 500px" th:src="@{/image/get/{image}(image=${image.id})}" >
+                    </a>
+                </div>
+            </div>
         </th:block>
         <div class="col-sm-8" style="width: 300px; float: none; margin: 0 auto">
             <form action="#" method="post" th:action="@{/offer/update/{offerId}(offerId = ${offer.id})}"

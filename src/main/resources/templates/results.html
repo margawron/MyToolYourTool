@@ -49,7 +49,7 @@
                                 <p th:text="${item.title}" class="offer-title">tytul</p>
                                 <p th:text="${item.description}" class="offer-desc">opis</p>
                                 <div class="offer-auxData">
-                                    <th:block th:text="'Wygaśnie ' + ${item.timeOfExpiration.toLocalDate()}"></th:block>
+                                    <th:block th:text="'Dodano ' + ${item.timeOfIssue.toLocalDate()}"></th:block>
                                     <div style="text-align: right">
                                         <b th:text="${item.cost}+'zł/dzień'"></b>
                                     </div>

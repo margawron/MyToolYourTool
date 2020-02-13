@@ -3,18 +3,15 @@ package pl.polsl.inzoprog.myToolYourTool.services;
 import org.springframework.stereotype.Service;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.AddOfferForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.Category;
+import pl.polsl.inzoprog.myToolYourTool.models.orm.Image;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.Offer;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
+import pl.polsl.inzoprog.myToolYourTool.repositories.ImageRepository;
 import pl.polsl.inzoprog.myToolYourTool.repositories.OfferRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Id;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,10 +25,12 @@ public class OfferService {
 
     private OfferRepository offerRepository;
     private EntityManagerFactory entityManagerFactory;
+    private ImageRepository imageRepository;
 
-    public OfferService(OfferRepository offerRepository, EntityManagerFactory entityManagerFactory) {
+    public OfferService(OfferRepository offerRepository,ImageRepository imageRepository, EntityManagerFactory entityManagerFactory) {
         this.offerRepository = offerRepository;
         this.entityManagerFactory = entityManagerFactory;
+        this.imageRepository = imageRepository;
     }
 
     public Offer getOfferById(Long id) {
@@ -60,6 +59,10 @@ public class OfferService {
 
     public List<Offer> getOfferFromCategory(Long categoryId){
         return offerRepository.findTop20ByCategoryId(categoryId);
+    }
+
+    public List<Image> getOfferImages(Long offerId){
+        return imageRepository.findAllByOriginOfferId(offerId);
     }
 
     public Offer addOffer(User owner, AddOfferForm offerForm, Category category) {
@@ -98,4 +101,9 @@ public class OfferService {
         }
         return true;
     }
+
+    public Offer saveOffer(Offer offer){
+        return offerRepository.save(offer);
+    }
+
 }

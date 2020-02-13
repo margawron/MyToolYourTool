@@ -101,7 +101,9 @@ public class OfferController {
     }
 
     @RequestMapping(path = "/offer/view/{offerId}", method = RequestMethod.GET)
-    public String getSingleOffer(Model model, @PathVariable(value = "offerId") final Long id, HttpServletRequest request) {
+    public String getSingleOffer(Model model,
+                                 HttpServletRequest request,
+                                 @PathVariable(value = "offerId") final Long id) {
         loginService.preparePath(model, request);
 
         if (id == null) {
@@ -117,25 +119,51 @@ public class OfferController {
 
         User user = loginService.getLoggedUser(request.getCookies());
 
+        offer.setOfferImages(offerService.getOfferImages(offer.getId()));
+        model.addAttribute("offer", offer);
 
         if (user != null && user.getId().equals(offer.getOwner().getId())) {
-            model.addAttribute("offer", offer);
-
-            // TODO allow for photo uploading
-
             return "offerOwnerView";
         }
-        // TODO make better template for viewing offers
-        model.addAttribute("offer", offer);
         return "offerClientView";
     }
 
 
     @RequestMapping(path = "/offer/update/{offerId}", method = RequestMethod.POST)
-    public String updateSingleOffer(Model model, @PathVariable(value = "offerId") final Long id, HttpServletRequest request) {
+    public String updateSingleOffer(Model model,
+                                    HttpServletRequest request,
+                                    @PathVariable(value = "offerId") final Long id,
+                                    @ModelAttribute Offer offer ) {
         loginService.preparePath(model, request);
-        // TODO implement
-        throw new NotImplementedException();
+
+        if(id == null){
+            model.addAttribute("message", "Podano nie poprawny identyfikator");
+            return "message";
+        }
+
+        User loggedUser = loginService.getLoggedUser(request.getCookies());
+        if(loggedUser == null){
+            model.addAttribute("message", "Nie jesteś zalogowany");
+            return "message";
+        }
+        Offer offerToUpdate = offerService.getOfferById(id);
+        if(offerToUpdate == null){
+            model.addAttribute("message", "Nie istnieje oferta o takim identyfikatorze");
+            return "message";
+        }
+
+        if(!offerToUpdate.getOwner().getId().equals(loggedUser.getId())){
+            model.addAttribute("message", "Oferta nie należy do Ciebie");
+            return "message";
+        }
+        // TODO Zupdateuj ofertę
+        offerToUpdate.setTitle(offer.getTitle());
+        offerToUpdate.setDescription(offer.getDescription());
+        offerToUpdate.setActive(offer.isActive());
+        offerService.saveOffer(offerToUpdate);
+
+        return "redirect:/offer/view/" + id;
+
     }
 
 

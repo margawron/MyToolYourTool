@@ -51,7 +51,7 @@
                                 <p th:text="${offer.title}" class="offer-title">Piła spalinowa !!</p>
                                 <p th:text="${offer.description}" class="offer-desc">5KM, 500ccm 50cm prowadnica, świeżo naostrzony łańcuch</p>
                                 <div class="offer-auxData">
-                                    <th:block th:text="'Wygaśnie ' + ${offer.timeOfExpiration.toLocalDate()}"></th:block>
+                                    <th:block th:text="'Dodano ' + ${offer.timeOfIssue.toLocalDate()}"></th:block>
                                     <div style="text-align: right">
                                         <b th:text="${offer.cost}+'zł/dzień'">50zł/dzień</b>
                                     </div>
