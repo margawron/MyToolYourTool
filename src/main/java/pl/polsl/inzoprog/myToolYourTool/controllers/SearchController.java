@@ -42,6 +42,6 @@ public class SearchController {
         loginService.preparePath(model, request);
         model.addAttribute("offers", searchService.getResults(searchForm));
 
-        return "search";
+        return "results";
     }
 }
