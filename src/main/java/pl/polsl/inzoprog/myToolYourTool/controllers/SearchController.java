@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.RegisterForm;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
+import pl.polsl.inzoprog.myToolYourTool.models.orm.Offer;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
 import pl.polsl.inzoprog.myToolYourTool.services.SearchService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author Marcel Gawron
@@ -40,7 +42,8 @@ public class SearchController {
     @RequestMapping(path = {"/search"}, method = RequestMethod.POST)
     public String search(Model model, HttpServletRequest request, @ModelAttribute SearchForm searchForm) {
         loginService.preparePath(model, request);
-        model.addAttribute("offers", searchService.getResults(searchForm));
+        List<Offer> offerList = searchService.getResults(searchForm);
+        model.addAttribute("offers", offerList);
 
         return "results";
     }

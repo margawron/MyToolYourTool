@@ -22,7 +22,7 @@ public class SearchService {
     public List<Offer> getResults(SearchForm searchForm){
         EntityManager em = entityManagerFactory.createEntityManager();
         String advertisement = searchForm.getSearch();
-        return em.createQuery("select o from Offer o where o.title like :custName", Offer.class)
+        return em.createQuery("select o from Offer o where o.description like :custName", Offer.class)
                 .setParameter("custName","%"+advertisement+"%")
                 .setMaxResults(10)
                 .getResultList();
