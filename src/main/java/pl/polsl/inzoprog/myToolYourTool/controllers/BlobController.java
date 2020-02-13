@@ -68,7 +68,6 @@ public class BlobController {
             return "message";
         }
 
-        // TODO add logic for adding the image
         Image image = new Image();
         try {
             image.setImageBytes(file.getBytes());

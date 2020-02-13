@@ -156,7 +156,6 @@ public class OfferController {
             model.addAttribute("message", "Oferta nie należy do Ciebie");
             return "message";
         }
-        // TODO Zupdateuj ofertę
         offerToUpdate.setTitle(offer.getTitle());
         offerToUpdate.setDescription(offer.getDescription());
         offerToUpdate.setActive(offer.isActive());
