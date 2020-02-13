@@ -50,8 +50,17 @@
             </div>
         </th:block>
         <div class="col-sm-7">
-            <p th:utext="${offer.title}"></p>
-            <p th:utext="${offer.description}"></p>
+            <div class="offer-content">
+                    <p th:text="${offer.title}" class="offer-title">Piła spalinowa !!</p>
+                    <p th:text="${offer.description}" class="offer-desc">5KM, 500ccm 50cm prowadnica, świeżo naostrzony łańcuch</p>
+                    <p th:text="'Kontakt: ' + ${offer.owner.mail}">mail</p>
+                    <div class="offer-auxData">
+                        <th:block th:text="'Dodano ' + ${offer.timeOfIssue.toLocalDate()}"></th:block>
+                        <div style="text-align: right">
+                            <b th:text="${offer.cost}+'zł/dzień'">50zł/dzień</b>
+                        </div>
+                    </div>
+            </div>
         </div>
     </div>
     <div th:replace="fragments/footerFragment.html :: footerFragment"></div>

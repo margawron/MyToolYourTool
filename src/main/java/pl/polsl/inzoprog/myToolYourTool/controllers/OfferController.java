@@ -159,6 +159,7 @@ public class OfferController {
         offerToUpdate.setTitle(offer.getTitle());
         offerToUpdate.setDescription(offer.getDescription());
         offerToUpdate.setActive(offer.isActive());
+        offerToUpdate.setCost(offer.getCost());
         offerService.saveOffer(offerToUpdate);
 
         return "redirect:/offer/view/" + id;
