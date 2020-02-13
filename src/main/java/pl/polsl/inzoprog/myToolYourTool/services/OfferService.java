@@ -43,7 +43,12 @@ public class OfferService {
     }
 
     public List<Offer> getLastActiveOffers(){
-        return offerRepository.findTop20ByIsActiveIsTrue();
+        List<Offer> offerList = offerRepository.findTop20ByIsActiveIsTrue();
+        for(Offer offer: offerList){
+            List<Image> images = getSingleImageOfOffer(offer.getId());
+            offer.setOfferImages(images);
+        }
+        return offerList;
     }
 
     public List<Offer> getLastestNeighbourhoodOffers(Integer postalCode){
