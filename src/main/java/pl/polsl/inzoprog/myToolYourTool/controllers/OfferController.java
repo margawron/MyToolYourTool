@@ -29,31 +29,31 @@ public class OfferController {
     private LoginService loginService;
     private CategoryService categoryService;
 
-    public OfferController(OfferService offerService, LoginService loginService, CategoryService categoryService){
+    public OfferController(OfferService offerService, LoginService loginService, CategoryService categoryService) {
         this.offerService = offerService;
         this.loginService = loginService;
         this.categoryService = categoryService;
     }
 
     @RequestMapping(path = "/offer/createFromCategory", method = RequestMethod.GET)
-    public String createOfferFromCategory(Model model, HttpServletRequest request){
-        loginService.preparePath(model,request);
+    public String createOfferFromCategory(Model model, HttpServletRequest request) {
+        loginService.preparePath(model, request);
         model.addAttribute("categories", categoryService.getParentCategories());
 
         return "createFromCategory";
     }
 
     @RequestMapping(path = "/offer/create/{categoryId}", method = RequestMethod.GET)
-    public String createOfferPage(Model model, HttpServletRequest request, @PathVariable(name = "categoryId") final Long categoryId){
+    public String createOfferPage(Model model, HttpServletRequest request, @PathVariable(name = "categoryId") final Long categoryId) {
         loginService.preparePath(model, request);
 
-        if(categoryId == null){
+        if (categoryId == null) {
             model.addAttribute("message", "Identyfikator kategorii jest nie poprawny!");
             return "message";
         }
 
         Category toolCategory = categoryService.getCategoryById(categoryId);
-        if(toolCategory == null){
+        if (toolCategory == null) {
             model.addAttribute("message", "Kategoria o takim identyfikatorze nie istnieje!");
             return "message";
         }
@@ -65,17 +65,17 @@ public class OfferController {
     }
 
     @RequestMapping(path = "/offer/create/{categoryId}", method = RequestMethod.POST)
-    public String createOfferRequest(Model model, HttpServletRequest request,@PathVariable(name = "categoryId")final Long categoryId ,@ModelAttribute AddOfferForm offerForm){
+    public String createOfferRequest(Model model, HttpServletRequest request, @PathVariable(name = "categoryId") final Long categoryId, @ModelAttribute AddOfferForm offerForm) {
 
         loginService.preparePath(model, request);
 
         User loggedUser = loginService.getLoggedUser(request.getCookies());
-        if(loggedUser == null){
+        if (loggedUser == null) {
             model.addAttribute("message", "Nie jesteś zalogowany żeby to zrobić!");
             return "message";
         }
 
-        if(categoryId == null){
+        if (categoryId == null) {
             model.addAttribute("message", "Numer kategorii jest nie poprawny");
             return "message";
         }
@@ -84,61 +84,86 @@ public class OfferController {
 
         Category itemCategory = categoryService.getCategoryById(categoryId);
 
-        if(itemCategory == null){
+        if (itemCategory == null) {
             model.addAttribute("message", "Taka kategoria nie istnieje");
             return "message";
         }
 
         String outOptionalErrorMessage = "";
-        if(!offerService.isCorrectForm(offerForm, outOptionalErrorMessage)){
-            model.addAttribute("message",outOptionalErrorMessage);
+        if (!offerService.isCorrectForm(offerForm, outOptionalErrorMessage)) {
+            model.addAttribute("message", outOptionalErrorMessage);
             return "message";
         }
 
         Offer addedOffer = offerService.addOffer(loggedUser, offerForm, itemCategory);
-
-        // TODO redirect to created offer
+        // Redirect to created offer
         return "redirect:/offer/view/" + addedOffer.getId().toString();
     }
 
     @RequestMapping(path = "/offer/view/{offerId}", method = RequestMethod.GET)
-    public String getSingleOffer(Model model, @PathVariable(value = "offerId")final Long id, HttpServletRequest request){
+    public String getSingleOffer(Model model,
+                                 HttpServletRequest request,
+                                 @PathVariable(value = "offerId") final Long id) {
         loginService.preparePath(model, request);
 
-        if(id == null){
+        if (id == null) {
             model.addAttribute("message", "Podano nie poprawny identyfikator oferty.");
             return "message";
         }
 
         Offer offer = offerService.getOfferById(id);
-        if(offer == null){
-            model.addAttribute("message", "Nie znaleziono oferty on identyfikatorze " + id +".");
+        if (offer == null) {
+            model.addAttribute("message", "Nie znaleziono oferty on identyfikatorze " + id + ".");
             return "message";
         }
 
         User user = loginService.getLoggedUser(request.getCookies());
 
+        offer.setOfferImages(offerService.getOfferImages(offer.getId()));
+        model.addAttribute("offer", offer);
 
-        if(user != null && user.getId().equals(offer.getOwner().getId())){
-            model.addAttribute("offer", offer);
-
-            // TODO allow for photo uploading
-
+        if (user != null && user.getId().equals(offer.getOwner().getId())) {
             return "offerOwnerView";
         }
-        // TODO make better template for viewing offers
-        model.addAttribute("offer", offer);
         return "offerClientView";
     }
 
 
     @RequestMapping(path = "/offer/update/{offerId}", method = RequestMethod.POST)
-    public String updateSingleOffer(Model model, @PathVariable(value = "offerId")final Long id, HttpServletRequest request){
+    public String updateSingleOffer(Model model,
+                                    HttpServletRequest request,
+                                    @PathVariable(value = "offerId") final Long id,
+                                    @ModelAttribute Offer offer ) {
         loginService.preparePath(model, request);
-        // TODO implement
-        throw new NotImplementedException();
-    }
 
+        if(id == null){
+            model.addAttribute("message", "Podano nie poprawny identyfikator");
+            return "message";
+        }
+
+        User loggedUser = loginService.getLoggedUser(request.getCookies());
+        if(loggedUser == null){
+            model.addAttribute("message", "Nie jesteś zalogowany");
+            return "message";
+        }
+        Offer offerToUpdate = offerService.getOfferById(id);
+        if(offerToUpdate == null){
+            model.addAttribute("message", "Nie istnieje oferta o takim identyfikatorze");
+            return "message";
+        }
+
+        if(!offerToUpdate.getOwner().getId().equals(loggedUser.getId())){
+            model.addAttribute("message", "Oferta nie należy do Ciebie");
+            return "message";
+        }
+        offerToUpdate.setTitle(offer.getTitle());
+        offerToUpdate.setDescription(offer.getDescription());
+        offerToUpdate.setActive(offer.isActive());
+        offerService.saveOffer(offerToUpdate);
+
+        return "redirect:/offer/view/" + id;
+
+    }
 
 
 }

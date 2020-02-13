@@ -37,11 +37,13 @@
     </div>
     <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
     <div class="row justify-content-sm-center" id="content">
-        <div class="col-sm-7" style="text-align: center" >
+        <div class="col-sm-7" style="text-align: center">
             <p>Dodajesz narzędzie do kategorii: <b th:text="${category.categoryName}">debug_nazwa_kategorii</b></p>
-            <form action="#" method="post" th:action="@{/offer/create/{catId}(catId=${category.id})}" th:object="${addOfferForm}">
+            <form action="#" method="post" th:action="@{/offer/create/{catId}(catId=${category.id})}"
+                  th:object="${addOfferForm}">
                 <p>Tytuł: <input style="width: 97%" th:field="*{title}" type="text"></p>
-                <p>Opis: <textarea style="width: 97%" rows="6" th:field="*{description}" type="text">Opisz jakoś swój sprzęt</textarea></p>
+                <p>Opis: <textarea rows="6" style="width: 97%" th:field="*{description}" type="text">Opisz jakoś swój sprzęt</textarea>
+                </p>
                 <p>Cena za dobę (zł):<input style="width: 97%" th:field="*{price}" type="text"></p>
                 <input class="btn btn-primary" style="display:block; width: available; margin: 0 auto" type="submit"
                        value="Dodaj ofertę">

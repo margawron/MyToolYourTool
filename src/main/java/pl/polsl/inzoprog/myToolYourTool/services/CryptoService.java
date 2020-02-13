@@ -15,17 +15,17 @@ import java.util.Random;
 @Service
 public class CryptoService {
 
-    public CryptoService(){
+    public CryptoService() {
 
     }
 
-    public String digestPassAndSalt(String password, String salt){
+    public String digestPassAndSalt(String password, String salt) {
         String toBeDigested = password + salt;
 
         MessageDigest md = null;
-        try{
+        try {
             md = MessageDigest.getInstance("SHA-512");
-        } catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             return null;
         }
         byte[] digested = md.digest(toBeDigested.getBytes());
@@ -33,13 +33,13 @@ public class CryptoService {
         return new String(digested, StandardCharsets.UTF_8);
     }
 
-    public String generateSalt(){
+    public String generateSalt() {
         byte[] rawSalt = new byte[14];
         new Random().nextBytes(rawSalt);
         return new String(rawSalt, StandardCharsets.UTF_8);
     }
 
-    public String generateRandomAlphanumericString(int length){
+    public String generateRandomAlphanumericString(int length) {
         return RandomStringUtils.randomAlphanumeric(length);
     }
 }

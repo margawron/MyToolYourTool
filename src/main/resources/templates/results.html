@@ -36,22 +36,32 @@
         </div>
     </div>
     <div th:replace="fragments/welcomeMessageFragment.html :: welcomeMessageFragment"></div>
-    <div class="row justify-content-sm-center">
-        <th:block th:if="${offer.offerImages.size() != 0}">
-            <div class="col-md-8">
-                <h3>Zdjęcia:</h3><br>
-            </div>
-            <div class="row" style="margin-bottom: 20px">
-                <div class="col-md-6" th:each="image : ${offer.offerImages}">
-                    <a th:href="@{/image/get/{image}(image=${image.id})}">
-                        <img style="width: 500px" th:src="@{/image/get/{image}(image=${image.id})}" >
-                    </a>
+    <div class="row" id="content">
+        <div class="col">
+            <th:block th:if="${offers.size() > 0}" th:each="item : ${offers}"> <!-- Single item -->
+                <div class="row offer">
+                    <div class="col-sm-3 offer-thumbnail">
+                        <img th:if="${item.offerImages.size() > 0}" th:src="@{/images/{offerPhoto}(offerPhoto=${item.offerImages.get(0)})}" width="200px">
+                    </div>
+                    <div class="col">
+                        <div class="offer-content">
+                            <a th:href="@{/offer/view/{offerId}(offerId=${item.id})}">
+                                <p th:text="${item.title}" class="offer-title">tytul</p>
+                                <p th:text="${item.description}" class="offer-desc">opis</p>
+                                <div class="offer-auxData">
+                                    <th:block th:text="'Dodano ' + ${item.timeOfIssue.toLocalDate()}"></th:block>
+                                    <div style="text-align: right">
+                                        <b th:text="${item.cost}+'zł/dzień'"></b>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+            </th:block> <!-- Single item -->
+            <div th:if="${offers.size() == 0}" style="text-align: center">
+                <p>Nie dodano jeszcze oferty do tej kategorii!</p>
             </div>
-        </th:block>
-        <div class="col-sm-7">
-            <p th:utext="${offer.title}"></p>
-            <p th:utext="${offer.description}"></p>
         </div>
     </div>
     <div th:replace="fragments/footerFragment.html :: footerFragment"></div>

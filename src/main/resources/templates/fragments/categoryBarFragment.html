@@ -6,26 +6,27 @@
 </head>
 <body>
 <th:block th:fragment="categoryBarFragment(parentCategories)">
-<div class="col-sm-3" id="categories">
-    <div class="categories-inside">
-        <div class="categories-header">Kategorie:<br></div>
-        <!-- Jedna kategoria -->
-        <th:block th:each="category : ${parentCategories}">
-            <div class="btn-group dropright" style="margin-bottom: 10px">
-                <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
-                        data-toggle="dropdown" th:utext="${category.categoryName}" type="button">
-                </button>
-                <div class="dropdown-menu">
-                    <th:block th:each="subcategory : ${category.children} ">
-                        <a class="dropdown-item" th:href="@{/offer/view/{catId}(catId=${subcategory.id})}" th:text="${subcategory.categoryName}"></a>
-                    </th:block>
+    <div class="col-sm-3" id="categories">
+        <div class="categories-inside">
+            <div class="categories-header">Kategorie:<br></div>
+            <!-- Jedna kategoria -->
+            <th:block th:each="category : ${parentCategories}">
+                <div class="btn-group dropright" style="margin-bottom: 10px">
+                    <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
+                            data-toggle="dropdown" th:utext="${category.categoryName}" type="button">
+                    </button>
+                    <div class="dropdown-menu">
+                        <th:block th:each="subcategory : ${category.children} ">
+                            <a class="dropdown-item" th:href="@{/category/view/{catId}(catId=${subcategory.id})}"
+                               th:text="${subcategory.categoryName}"></a>
+                        </th:block>
+                    </div>
                 </div>
-            </div>
-            <br>
-        </th:block>
-        <!-- Jedna kategoria -->
+                <br>
+            </th:block>
+            <!-- Jedna kategoria -->
+        </div>
     </div>
-</div>
 </th:block>
 </body>
 </html>

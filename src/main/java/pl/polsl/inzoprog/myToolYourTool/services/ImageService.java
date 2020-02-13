@@ -15,16 +15,20 @@ public class ImageService {
 
     private ImageRepository imageRepository;
 
-    public ImageService(ImageRepository imageRepository){
+    public ImageService(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
 
-    public Image getImageById(Long id){
-        Optional<Image> img =  imageRepository.findById(id);
-        if(!img.isPresent()){
+    public Image getImageById(Long id) {
+        Optional<Image> img = imageRepository.findById(id);
+        if (!img.isPresent()) {
             return null;
         }
         return img.get();
+    }
+
+    public Image addImage(Image image){
+        return imageRepository.save(image);
     }
 
 }

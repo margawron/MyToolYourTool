@@ -3,12 +3,17 @@ package pl.polsl.inzoprog.myToolYourTool.services;
 import org.springframework.stereotype.Service;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.AddOfferForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.Category;
+import pl.polsl.inzoprog.myToolYourTool.models.orm.Image;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.Offer;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
+import pl.polsl.inzoprog.myToolYourTool.repositories.ImageRepository;
 import pl.polsl.inzoprog.myToolYourTool.repositories.OfferRepository;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,20 +24,48 @@ import java.util.Optional;
 public class OfferService {
 
     private OfferRepository offerRepository;
+    private EntityManagerFactory entityManagerFactory;
+    private ImageRepository imageRepository;
 
-    public OfferService(OfferRepository offerRepository){
+    public OfferService(OfferRepository offerRepository,ImageRepository imageRepository, EntityManagerFactory entityManagerFactory) {
         this.offerRepository = offerRepository;
+        this.entityManagerFactory = entityManagerFactory;
+        this.imageRepository = imageRepository;
     }
 
-    public Offer getOfferById(Long id){
+    public Offer getOfferById(Long id) {
         Optional<Offer> offerOptional = offerRepository.findById(id);
-        if(!offerOptional.isPresent()){
+        if (!offerOptional.isPresent()) {
             return null;
         }
         return offerOptional.get();
     }
 
-    public Offer addOffer(User owner, AddOfferForm offerForm, Category category){
+    public List<Offer> getLastActiveOffers(){
+        return offerRepository.findTop20ByIsActiveIsTrue();
+    }
+
+    public List<Offer> getLastestNeighbourhoodOffers(Integer postalCode){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        TypedQuery<Offer> typedQuery = em.createQuery("select o from Offer o where o.isActive = true and CONCAT(o.owner.postalCode,'') like concat(:postalCode,'') ORDER BY o.id", Offer.class);
+        typedQuery.setMaxResults(20);
+        typedQuery.setParameter("postalCode", postalCode);
+        return typedQuery.getResultList();
+    }
+
+    public List<Offer> getUserOffers(Long id){
+        return offerRepository.getOfferByOwnerId(id);
+    }
+
+    public List<Offer> getOfferFromCategory(Long categoryId){
+        return offerRepository.findTop20ByCategoryId(categoryId);
+    }
+
+    public List<Image> getOfferImages(Long offerId){
+        return imageRepository.findAllByOriginOfferId(offerId);
+    }
+
+    public Offer addOffer(User owner, AddOfferForm offerForm, Category category) {
         Offer createdOffer = new Offer();
         createdOffer.setTitle(offerForm.getTitle());
         createdOffer.setDescription(offerForm.getDescription());
@@ -47,25 +80,30 @@ public class OfferService {
         return offerRepository.save(createdOffer);
     }
 
-    public boolean isCorrectForm(AddOfferForm form, String outMessage){
-        if(form.getTitle().length()<3){
+    public boolean isCorrectForm(AddOfferForm form, String outMessage) {
+        if (form.getTitle().length() < 3) {
             outMessage = "Tytuł jest za krótki";
             return false;
         }
-        if(form.getDescription().length()<10){
+        if (form.getDescription().length() < 10) {
             outMessage = "Opis jest z krótki";
             return false;
         }
         Integer price;
-        try{
+        try {
             price = Integer.parseInt(form.getPrice());
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             price = null;
         }
-        if(price == null){
+        if (price == null) {
             outMessage = "Cena wynajmu jest nieprawidłowa";
             return false;
         }
         return true;
     }
+
+    public Offer saveOffer(Offer offer){
+        return offerRepository.save(offer);
+    }
+
 }

@@ -22,45 +22,45 @@ public class RegisterService {
     private UserRepository userRepository;
     private CryptoService cryptoService;
 
-    public RegisterService(UserRepository userRepository, CryptoService cryptoService){
+    public RegisterService(UserRepository userRepository, CryptoService cryptoService) {
         this.userRepository = userRepository;
         this.cryptoService = cryptoService;
     }
 
-    public boolean areRegisterCredentialsCorrect(String messageToBeReturned, RegisterForm registerForm){
+    public boolean areRegisterCredentialsCorrect(String messageToBeReturned, RegisterForm registerForm) {
         String username = registerForm.getUsername();
-        if(username.length()<3){
-            messageToBeReturned= "Nazwa użytkownika zbyt krótka.";
+        if (username.length() < 3) {
+            messageToBeReturned = "Nazwa użytkownika zbyt krótka.";
             return false;
         }
-        if(username.length()>21){
+        if (username.length() > 21) {
             messageToBeReturned = "Nazwa użytkownika zbyt długa.";
             return false;
         }
         String password = registerForm.getPasswordFirst();
-        if(!password.matches("^([A-Za-z0-9]){3,20}$")){
+        if (!password.matches("^([A-Za-z0-9]){3,20}$")) {
             messageToBeReturned = "Hasło powinno mieć od 3 do 20 znaków<br> oraz zawierać same litery oraz cyfry";
             return false;
         }
 
-        if(!password.equals(registerForm.getPasswordSecond())){
+        if (!password.equals(registerForm.getPasswordSecond())) {
             messageToBeReturned = "Hasła nie są takie same.";
             return false;
         }
 
-        if(!registerForm.getPostalCode().matches(Constants.postalCodeRegExp)){
+        if (!registerForm.getPostalCode().matches(Constants.postalCodeRegExp)) {
             messageToBeReturned = "Podany kod pocztowy nie jest prawidłowy.";
             return false;
         }
 
-        if(!registerForm.getEmail().matches(Constants.emailRegExp)){
+        if (!registerForm.getEmail().matches(Constants.emailRegExp)) {
             messageToBeReturned = "Mail nie jest poprawny";
             return false;
         }
         return true;
     }
 
-    public User registerUser(RegisterForm registerForm){
+    public User registerUser(RegisterForm registerForm) {
         User userBeingCreated = new User();
         userBeingCreated.setName(registerForm.getUsername());
 
@@ -71,7 +71,7 @@ public class RegisterService {
         String password = registerForm.getPasswordFirst();
         String digestedPassword = cryptoService.digestPassAndSalt(password, salt);
         // Digest successful
-        if(digestedPassword == null){
+        if (digestedPassword == null) {
             return null;
         }
         userBeingCreated.setPassword(digestedPassword);
@@ -81,64 +81,64 @@ public class RegisterService {
         userBeingCreated.setPostalCode(parsedPostalCode);
 
         User saved = userRepository.save(userBeingCreated);
-        if(saved == null){
+        if (saved == null) {
             return null;
         }
-        if(!saved.getName().equals(userBeingCreated.getName())){
+        if (!saved.getName().equals(userBeingCreated.getName())) {
             return null;
         }
 
         return userBeingCreated;
     }
 
-    public Integer parsePostalCode(String postalCode){
+    public Integer parsePostalCode(String postalCode) {
         String[] splitted = postalCode.split("-");
         String postalCodeWithoutHyphen = splitted[0] + splitted[1];
         return Integer.parseInt(postalCodeWithoutHyphen);
     }
 
-    public boolean updateUser(User loggedUser, ProfileEditForm editForm, String messageToBeReturned){
+    public boolean updateUser(User loggedUser, ProfileEditForm editForm, StringBuilder messageToBeReturned) {
         Optional<User> optionalUser = userRepository.findById(editForm.getId());
-        if(!optionalUser.isPresent()){
-            messageToBeReturned = "Dostęp zabroniony.";
+        if (!optionalUser.isPresent()) {
+            messageToBeReturned.append("Dostęp zabroniony.");
             return false;
         }
         User user = optionalUser.get();
-        if(!user.getId().equals(loggedUser.getId())){
-            messageToBeReturned = "Dostęp zabroniony.";
+        if (!user.getId().equals(loggedUser.getId())) {
+            messageToBeReturned.append("Dostęp zabroniony.");
             return false;
         }
 
-        String hashedAndSaltedPassword = cryptoService.digestPassAndSalt(editForm.getCurrentPassword(),user.getPasswordSalt());
-        if(!hashedAndSaltedPassword.equals(user.getPassword())){
-            messageToBeReturned = "Podane aktualne hasło jest nie poprawne";
+        String hashedAndSaltedPassword = cryptoService.digestPassAndSalt(editForm.getCurrentPassword(), user.getPasswordSalt());
+        if (!hashedAndSaltedPassword.equals(user.getPassword())) {
+            messageToBeReturned.append("Podane aktualne hasło jest nie poprawne");
             return false;
         }
         String password = editForm.getNewPasswordFirst();
-        if(!password.matches("^([A-Za-z0-9]){3,20}$") && !password.equals("")){
-            messageToBeReturned = "Hasło powinno mieć od 3 do 20 znaków<br> oraz zawierać same litery oraz cyfry";
+        if (!password.matches("^([A-Za-z0-9]){3,20}$") && !password.equals("")) {
+            messageToBeReturned.append("Hasło powinno mieć od 3 do 20 znaków<br> oraz zawierać same litery oraz cyfry");
             return false;
         }
-        if(!editForm.getNewPasswordFirst().equals(editForm.getNewPasswordSecond())){
-            messageToBeReturned = "Hasła nie są takie same.";
-            return false;
-        }
-
-        if(!editForm.getPostalCode().matches(Constants.postalCodeRegExp)){
-            messageToBeReturned = "Podany kod pocztowy nie jest prawidłowy.";
+        if (!editForm.getNewPasswordFirst().equals(editForm.getNewPasswordSecond())) {
+            messageToBeReturned.append("Hasła nie są takie same.");
             return false;
         }
 
-        if(!editForm.getEmail().matches(Constants.emailRegExp)){
-            messageToBeReturned = "Mail nie jest poprawny";
+        if (!editForm.getPostalCode().matches(Constants.postalCodeRegExp)) {
+            messageToBeReturned.append("Podany kod pocztowy nie jest prawidłowy.");
+            return false;
+        }
+
+        if (!editForm.getEmail().matches(Constants.emailRegExp)) {
+            messageToBeReturned.append("Mail nie jest poprawny");
             return false;
         }
 
         user.setPostalCode(parsePostalCode(editForm.getPostalCode()));
         user.setMail(editForm.getEmail());
-        if(!editForm.getNewPasswordFirst().equals("")){
+        if (!editForm.getNewPasswordFirst().equals("")) {
             user.setPasswordSalt(cryptoService.generateSalt());
-            user.setPassword(cryptoService.digestPassAndSalt(editForm.getNewPasswordFirst(),user.getPasswordSalt()));
+            user.setPassword(cryptoService.digestPassAndSalt(editForm.getNewPasswordFirst(), user.getPasswordSalt()));
         }
         userRepository.save(user);
 

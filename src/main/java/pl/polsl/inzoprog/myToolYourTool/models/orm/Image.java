@@ -20,7 +20,6 @@ public class Image {
     private Long id;
 
     @ManyToOne
-    @JoinTable(name = "image_to_offer_map_table")
     private Offer originOffer;
 
     @Lob

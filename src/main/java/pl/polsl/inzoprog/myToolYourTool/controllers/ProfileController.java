@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.polsl.inzoprog.myToolYourTool.models.forms.ProfileEditForm;
 import pl.polsl.inzoprog.myToolYourTool.models.orm.User;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
+import pl.polsl.inzoprog.myToolYourTool.services.OfferService;
 import pl.polsl.inzoprog.myToolYourTool.services.RegisterService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,15 +22,17 @@ public class ProfileController {
 
     private LoginService loginService;
     private RegisterService registerService;
+    private OfferService offerService;
 
-    public ProfileController(LoginService loginService, RegisterService registerService){
+    public ProfileController(LoginService loginService, RegisterService registerService, OfferService offerService) {
         this.loginService = loginService;
-        this.registerService =registerService;
+        this.registerService = registerService;
+        this.offerService = offerService;
     }
 
     @RequestMapping(path = {"/profile"}, method = RequestMethod.GET)
-    public String getUserProfile(Model model, HttpServletRequest request){
-        if(!loginService.isUserLoggedIn(request.getCookies())){
+    public String getUserProfile(Model model, HttpServletRequest request) {
+        if (!loginService.isUserLoggedIn(request.getCookies())) {
             return "redirect:/login";
         }
 
@@ -46,21 +49,22 @@ public class ProfileController {
 
         StringBuilder sb = new StringBuilder();
         sb.append(user.getPostalCode().toString());
-        sb.insert(2,'-');
+        sb.insert(2, '-');
 
         pef.setPostalCode(sb.toString());
         model.addAttribute("profileEditForm", pef);
+        model.addAttribute("userOffers", offerService.getUserOffers(user.getId()));
         return "profile";
     }
 
     @RequestMapping(path = "/updateProfile", method = RequestMethod.POST)
-    public String updateProfile(Model model, @ModelAttribute ProfileEditForm editForm, HttpServletRequest request){
-        loginService.preparePage(model);
+    public String updateProfile(Model model, @ModelAttribute ProfileEditForm editForm, HttpServletRequest request) {
+        loginService.preparePath(model, request);
 
         User loggedUser = loginService.getLoggedUser(request.getCookies());
-        String returnMessage = "";
-        if(!registerService.updateUser(loggedUser,editForm,returnMessage)){
-            model.addAttribute("message", returnMessage);
+        StringBuilder returnMessage = new StringBuilder("");
+        if (!registerService.updateUser(loggedUser, editForm, returnMessage)) {
+            model.addAttribute("message", returnMessage.toString());
             return "message";
         }
 

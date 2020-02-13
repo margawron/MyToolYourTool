@@ -2,12 +2,11 @@ package pl.polsl.inzoprog.myToolYourTool.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.polsl.inzoprog.myToolYourTool.models.forms.LoginForm;
-import pl.polsl.inzoprog.myToolYourTool.models.forms.SearchForm;
+import pl.polsl.inzoprog.myToolYourTool.models.forms.RegisterForm;
 import pl.polsl.inzoprog.myToolYourTool.services.LoginService;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,13 +19,13 @@ public class SearchController {
 
     private LoginService loginService;
 
-    public SearchController(LoginService loginService){
+    public SearchController(LoginService loginService) {
         this.loginService = loginService;
     }
 
     @RequestMapping(path = {"/search"}, method = RequestMethod.GET)
-    public String sendSearchPage(Model model, HttpServletRequest request){
-        loginService.preparePath(model,request);
+    public String sendSearchPage(Model model, HttpServletRequest request) {
+        loginService.preparePath(model, request);
 
         // TODO implement
 
@@ -34,8 +33,8 @@ public class SearchController {
     }
 
     @RequestMapping(path = {"/search"}, method = RequestMethod.POST)
-    public String search(Model model, HttpServletRequest request){
-        loginService.preparePath(model,request);
+    public String search(Model model, HttpServletRequest request, @ModelAttribute RegisterForm registerForm) {
+        loginService.preparePath(model, request);
 
         // TODO implement
 

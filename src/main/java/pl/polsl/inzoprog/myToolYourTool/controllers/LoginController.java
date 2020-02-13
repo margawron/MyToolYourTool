@@ -22,29 +22,29 @@ public class LoginController {
 
     private LoginService loginService;
 
-    public LoginController(LoginService loginService){
+    public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.GET)
-    public String loginPage(Model model, HttpServletRequest request){
+    public String loginPage(Model model, HttpServletRequest request) {
         loginService.preparePage(model);
 
         Cookie[] cookies = request.getCookies();
-        if(cookies == null){
+        if (cookies == null) {
             return "login";
         }
-        if(loginService.isUserLoggedIn(cookies)){
+        if (loginService.isUserLoggedIn(cookies)) {
             return "redirect:/";
         }
         return "login";
     }
 
     @RequestMapping(path = {"/login"}, method = RequestMethod.POST)
-    public String loginRequest(Model model, @ModelAttribute LoginForm loginForm, HttpServletResponse response){
+    public String loginRequest(Model model, @ModelAttribute LoginForm loginForm, HttpServletResponse response) {
         loginService.preparePage(model);
 
-        if(!loginService.loginWithConfirmation(loginForm, response)){
+        if (!loginService.loginWithConfirmation(loginForm, response)) {
             model.addAttribute("message", "Nie można zalogować. Sprawdź czy podałeś poprawne dane");
             return "message";
         }
@@ -53,7 +53,7 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/logout")
-    public String logout(Model model, HttpServletRequest request){
+    public String logout(Model model, HttpServletRequest request) {
         loginService.preparePage(model);
 
         loginService.logout(request.getCookies());
