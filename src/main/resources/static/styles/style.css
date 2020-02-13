@@ -85,3 +85,15 @@
 .padding-top-none {
     padding-top: 0 !important;
 }
+
+.search-button {
+    border-radius: 8px;
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
