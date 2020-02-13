@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments/head.html :: head">
+
+</head>
+<body id="body">
+<div class="container main-container" style="padding-top: 15px">
+    <div th:replace="fragments/headerFragment.html :: headerFragment(searchFrom=${searchForm}, username=${username}, time=${time}, loginForm=${loginForm})"></div>
+        <div class="row" id="navBar">
+            <div class="col">
+                <a th:href="@{/}">Strona głowna</a>
+            </div>
+            <th:block th:if="${username != null}">
+                <div class="col">
+                    <a th:href="@{/offer/createFromCategory}">Utwórz ofertę</a>
+                </div>
+            </th:block>
+            <th:block th:if="${username == null}">
+                <div class="col">
+                    <a th:href="@{/login}">Login</a>
+                </div>
+                <div class="col">
+                    <a th:href="@{/register}">Rejestracja</a>
+                </div>
+            </th:block>
+            <div class="col">
+                <a th:href="@{/search}">Wyszukaj</a>
+            </div>
+            <div class="col">
+                <a id="current" th:href="@{/profile}">Profil</a>
+            </div>
+            <div class="col">
+                <a th:href="@{/logout}">Wyloguj</a>
+            </div>
+        </div>
+        <div align="center" style="margin-top: 50px">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Wpisz frazę" size="50px">
+
+            <button class="search-button">Wyszukaj</button>
+        </div>
+    <div th:replace="fragments/footerFragment.html :: footerFragment"></div>
+</div>
+</body>
+</html>
